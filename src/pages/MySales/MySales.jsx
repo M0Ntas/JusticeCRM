@@ -66,7 +66,7 @@ const MySales = () => {
                     )
                 })}
                 <div className="modal-button">
-                    <Button onClick={() => console.log('====>Save<====')}>
+                    <Button onClick={() => console.log('====>SaveChanges<====')}>
                         <span>Save changes</span>
                     </Button>
                 </div>
