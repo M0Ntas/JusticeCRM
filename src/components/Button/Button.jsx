@@ -1,11 +1,11 @@
 import './styles.scss'
 import button from "../../images/icons/button.svg"
 
-const Button = () => {
+const Button = ({ onClick, children }) => {
+
   return (
-    <button className="button">
-        <img src={button} alt="button"/>
-        <span>Create a product</span>
+    <button className="button" onClick={onClick}>
+      {children}
     </button>
   )
 }

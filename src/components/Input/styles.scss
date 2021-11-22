@@ -1,0 +1,20 @@
+.modal-input {
+  display: block;
+  width: 100%;
+  height: 46px;
+  font-weight: normal;
+  font-size: 14px;
+  border-radius: 3px;
+  border-color: rgba(43, 56, 68, 0.25);
+  .modal-input::placeholder {
+    padding: 16px;
+  }
+  //color: rgba(43, 56, 68, 0.25) ;
+}
+
+
+//.modal {
+//  input::placeholder {
+//    margin-right: 16px;
+//  }
+//}

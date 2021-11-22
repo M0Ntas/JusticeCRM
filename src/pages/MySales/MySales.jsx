@@ -1,19 +1,15 @@
 import React from 'react';
 import './styles.scss'
-import Button from "../../components/Button/Button";
-import Title from "../../components/Title/Title";
+import TitleHeader from "../../components/TitleHeader/TitleHeader";
 
 const MySales = () => {
   return (
     <div className="container">
-      <div className="sales">
-        <Title
-          title={"My sales"}
-          subtitle={"Sales table"}
-        />
-        <Button/>
-      </div>
-      <hr/>
+      <TitleHeader
+        title={"My sales"}
+        subtitle={"Sales table"}
+        onClick={() => {}}
+      />
     </div>
   );
 };

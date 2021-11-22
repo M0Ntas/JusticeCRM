@@ -1,19 +1,15 @@
 import React from 'react';
 import './styles.scss'
-import Button from "../../components/Button/Button";
-import Title from "../../components/Title/Title";
+import TitleHeader from "../../components/TitleHeader/TitleHeader";
 
 const Personal = () => {
   return (
     <div className="container">
-      <div className="personal">
-        <Title
-          title={"Personal Cabinet"}
-          subtitle={"Information about your account"}
-        />
-        <Button />
-      </div>
-      <hr/>
+      <TitleHeader
+        title={"Personal Cabinet"}
+        subtitle={"Information about your account"}
+        onClick={() => {}}
+      />
     </div>
   );
 };
