@@ -3,10 +3,10 @@ import './styles.scss'
 
 const MyProducts = () => {
   return (
-    <div>
+    <div className="container">
       My products
     </div>
-  );
+  )
 };
 
 export default MyProducts;

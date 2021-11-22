@@ -16,14 +16,15 @@
     a {
       display: flex;
       align-items: center;
-      padding: 20px 0 20px 15px;
+      padding: 21px 0px;
       text-decoration: none;
       color: $blue;
       filter: grayscale(1);
       opacity: .7;
       position: relative;
       img {
-        margin-right: 10px;
+        margin-left: 40px;
+        margin-right: 11px;
       }
     }
     .active {
@@ -46,11 +47,12 @@
     position: absolute;
     display: flex;
     align-items: center;
-    bottom: 30px;
+    bottom: 0px;
     width: 100%;
-    padding: 10px 20px;
+    padding-bottom: 48px;
     img {
-      margin-right: 10px;
+      margin-left: 40px;
+      margin-right: 9px;
     }
   }
 }

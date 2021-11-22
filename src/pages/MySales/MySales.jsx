@@ -3,7 +3,7 @@ import './styles.scss'
 
 const MySales = () => {
   return (
-    <div>
+    <div className="container">
       My Sales
     </div>
   );

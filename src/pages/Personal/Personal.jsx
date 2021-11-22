@@ -3,7 +3,7 @@ import './styles.scss'
 
 const Personal = () => {
   return (
-    <div>
+    <div className="container">
       Personal Cabinet
     </div>
   );
