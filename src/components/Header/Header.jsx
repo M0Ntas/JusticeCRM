@@ -9,28 +9,43 @@ import logout from "../../images/icons/logout.svg"
 import './styles.scss'
 
 const Header = () => {
+  const menu = [
+    {
+      icon: home,
+      title: 'Main page',
+      link: '/'
+    },
+    {
+      icon: doc,
+      title: 'My Products',
+      link: '/my-products'
+    },
+    {
+      icon: sales,
+      title: 'My Sales',
+      link: '/my-sales'
+    },
+    {
+      icon: user,
+      title: 'Personal',
+      link: '/personal'
+    },
+  ]
+
   return (
     <div className="header">
       <div className="logo">
         <img src={logo} alt="logo"/>
       </div>
       <div className="menu">
-        <NavLink exact activeClassName="active" to="/">
-          <img src={home} alt="list item"/>
-          Main page
-        </NavLink>
-        <NavLink activeClassName="active" to="/my-products">
-          <img src={doc} alt="list item"/>
-          My Products
-        </NavLink>
-        <NavLink activeClassName="active" to="/my-sales">
-          <img src={sales} alt="list item"/>
-          My Sales
-        </NavLink>
-        <NavLink activeClassName="active" to="/personal">
-          <img src={user} alt="list item"/>
-          Personal
-        </NavLink>
+        {menu.map(item => {
+          return (
+            <NavLink key={item.title} exact activeClassName="active" to={item.link}>
+              <img src={item.icon} alt="list item"/>
+              {item.title}
+            </NavLink>
+          )
+        })}
       </div>
       <div className="logout">
         <img src={logout} alt="logout"/>

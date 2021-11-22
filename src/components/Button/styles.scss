@@ -1,13 +1,16 @@
 @import "../../variables";
 
-.button{
+button{
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 200px;
   height: 51px;
   background: $blue;
   border: 1px solid $blue;
   border-radius: 3px;
   padding: 16px 32px;
+  cursor: pointer;
   img{
     margin-right: 8px;
   }
