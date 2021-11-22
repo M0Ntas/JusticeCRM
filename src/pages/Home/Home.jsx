@@ -4,7 +4,7 @@ import Modal from "../../components/Modal/Modal";
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import plus from "../../images/icons/plus.svg";
+import plus from "../../images/icons/plus.svg"
 
 const Home = () => {
     // const title = 'Sales statistics'
@@ -81,7 +81,7 @@ const Home = () => {
                     )
                 })}
                 <div className="modal-button">
-                    <Button onClick={() => console.log('====>Add<====')}>
+                    <Button onClick={() => console.log('====>AddProducts<====')}>
                         <span>Add products <img src={plus} alt='add'/></span>
                     </Button>
                 </div>

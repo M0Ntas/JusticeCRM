@@ -31,7 +31,7 @@ const MyProducts = () => {
 
             {open && <Modal
                 onClick={setOpen}
-                title="sdfsdfsfdf">
+                title="Sell the product">
                 {inputs.map((item) => {
                     return (
                         <div className="modal-input-wrap" key={item.id}>
@@ -43,8 +43,8 @@ const MyProducts = () => {
                     )
                 })}
                 <div className="modal-button">
-                    <Button onClick={() => console.log('====>Add<====')}>
-                        <span>xyi</span>
+                    <Button onClick={() => console.log('====>SellProduct<====')}>
+                        <span>Sell product</span>
                     </Button>
                 </div>
             </Modal>
