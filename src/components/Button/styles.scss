@@ -1,0 +1,18 @@
+@import "../../variables";
+
+.button{
+  display: flex;
+  width: 200px;
+  height: 51px;
+  background: $blue;
+  border: 1px solid $blue;
+  border-radius: 3px;
+  padding: 16px 32px;
+  img{
+    margin-right: 8px;
+  }
+  span{
+    color: #ffffff;
+    font-size: 14px;
+  }
+}
