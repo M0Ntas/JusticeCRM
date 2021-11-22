@@ -69,6 +69,7 @@ const Home = () => {
         onClick={setOpen}
         title="Creating a product"
         inputs={inputs}
+        button="add-product"
       />}
     </div>
   )

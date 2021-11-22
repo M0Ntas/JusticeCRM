@@ -9,6 +9,7 @@ const Personal = () => {
         title={"Personal Cabinet"}
         subtitle={"Information about your account"}
         onClick={() => {}}
+        button="btn"
       />
     </div>
   );
