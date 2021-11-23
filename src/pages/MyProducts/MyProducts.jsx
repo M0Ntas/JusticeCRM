@@ -6,6 +6,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 
 const MyProducts = () => {
+
     const [open, setOpen] = useState(false)
 
     const inputs = [
