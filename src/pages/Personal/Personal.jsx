@@ -14,7 +14,8 @@ const Personal = () => {
     lastName: '',
     email: '',
     newPassword: '',
-  })
+})
+
 
   const inputsLeft = [
     {
@@ -70,6 +71,7 @@ const Personal = () => {
       ...form,
       [key]: event.target.value
     })
+    console.log('====>form<====', form)
   }
 
   return (
@@ -77,8 +79,7 @@ const Personal = () => {
       <TitleHeader
         title={"Personal Cabinet"}
         subtitle={"Information about your account"}
-        onClick={() => {
-        }}
+        onClick={() => {}}
         button="btn"
       />
       <div className="personal-form">

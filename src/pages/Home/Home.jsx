@@ -7,6 +7,16 @@ import Button from "../../components/Button/Button";
 import plus from "../../images/icons/plus.svg"
 
 const Home = () => {
+
+    const [form, setForm] = useState({
+        store: '',
+        price: '',
+        productName: '',
+        productCategory: '',
+        quantityOfGoods: '',
+        weightOfItem: '',
+    })
+
     // const title = 'Sales statistics'
     const [open, setOpen] = useState(false)
 
@@ -14,34 +24,49 @@ const Home = () => {
         {
             type: 'text',
             id: 0,
-            placeholder: 'Store'
+            placeholder: 'Store',
+            handler: 'store'
         },
         {
             type: 'number',
             id: 1,
-            placeholder: 'Price'
+            placeholder: 'Price',
+            handler: 'price'
         },
         {
             type: 'text',
             id: 2,
-            placeholder: 'Product name'
+            placeholder: 'Product name',
+            handler: 'productName'
         },
         {
             type: 'text',
             id: 3,
-            placeholder: 'Product Category'
+            placeholder: 'Product Category',
+            handler: 'productCategory'
         },
         {
             type: 'number',
             id: 4,
-            placeholder: 'Quantity of goods'
+            placeholder: 'Quantity of goods',
+            handler: 'quantityOfGoods'
         },
         {
             type: 'number',
             id: 5,
-            placeholder: 'Weight/Volume of one item'
+            placeholder: 'Weight/Volume of one item',
+            handler: 'weightOfItem'
         },
     ]
+
+    const changeHandler = event => {
+        const key = event.target.getAttribute('handler')
+        setForm({
+            ...form,
+            [key]: event.target.value
+        })
+        console.log('====>form<====', form)
+    }
 
 
     return (
@@ -76,6 +101,8 @@ const Home = () => {
                             <Input
                                 placeholder={item.placeholder}
                                 type={item.type}
+                                handler={item.handler}
+                                onChange={changeHandler}
                             />
                         </div>
                     )

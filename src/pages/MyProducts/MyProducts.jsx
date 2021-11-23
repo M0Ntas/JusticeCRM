@@ -7,20 +7,36 @@ import Button from "../../components/Button/Button";
 
 const MyProducts = () => {
 
+    const [form, setForm] = useState({
+        numberOfProducts: '',
+        dateOfSale: '',
+    })
+
     const [open, setOpen] = useState(false)
 
     const inputs = [
         {
             type: 'number',
             id: 0,
-            placeholder: 'Number of products'
+            placeholder: 'Number of products',
+            handler: 'numberOfProducts'
         },
         {
             type: 'date',
             id: 1,
-            placeholder: 'Date of sale'
+            placeholder: 'Date of sale',
+            handler: 'dateOfSale'
         },
     ]
+
+    const changeHandler = event => {
+        const key = event.target.getAttribute('handler')
+        setForm({
+            ...form,
+            [key]: event.target.value
+        })
+        console.log('====>form<====', form)
+    }
 
     return (
         <div className="container">
@@ -39,6 +55,8 @@ const MyProducts = () => {
                             <Input
                                 placeholder={item.placeholder}
                                 type={item.type}
+                                handler={item.handler}
+                                onChange={changeHandler}
                             />
                         </div>
                     )
