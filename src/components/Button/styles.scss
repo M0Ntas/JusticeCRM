@@ -1,6 +1,6 @@
 @import "../../variables";
 
-button{
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,10 +11,12 @@ button{
   border-radius: 3px;
   padding: 16px 32px;
   cursor: pointer;
-  img{
+
+  img {
     margin-right: 8px;
   }
-  span{
+
+  span {
     color: #ffffff;
     font-size: 14px;
   }
