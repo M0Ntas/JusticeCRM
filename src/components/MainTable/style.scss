@@ -1,39 +1,39 @@
-
-thead {
-  background: rgba(43, 56, 68, 1);
-  border-radius: 3px;
-  margin-bottom: 24px;
-
-  th {
-    color: white !important;
-  }
-}
-
-.table-header-row:first-child {
-  text-align: left;
-}
-
-.table-header-row:last-child {
-  text-align: right;
-}
-
-.table {
-  box-shadow: none !important;
-}
-
-.table-row {
-  border-radius: 3px;
-  height: 60px;
-  background: #F8F8F8;
-
-  &:nth-child(odd) {
-    background: white;
-  }
-
-  * {
-    border: none !important;
-  }
-}
+//
+//thead {
+//  background: rgba(43, 56, 68, 1);
+//  border-radius: 3px;
+//  margin-bottom: 24px;
+//
+//  th {
+//    color: white !important;
+//  }
+//}
+//
+//.table-header-row:first-child {
+//  text-align: left;
+//}
+//
+//.table-header-row:last-child {
+//  text-align: right;
+//}
+//
+//.table {
+//  box-shadow: none !important;
+//}
+//
+//.table-row {
+//  border-radius: 3px;
+//  height: 60px;
+//  background: #F8F8F8;
+//
+//  &:nth-child(odd) {
+//    background: white;
+//  }
+//
+//  * {
+//    border: none !important;
+//  }
+//}
 
 .buttons {
   display: flex;
@@ -52,6 +52,8 @@ thead {
   }
 
   .table-button-delete {
+    outline: none;
+    border: none;
     background: none;
     cursor: pointer;
   }
