@@ -95,28 +95,28 @@ const Personal = () => {
         button="btn"
       />
 
-      {open && <Modal
-        onClick={setOpen}
-        title="Creating a product">
-        {inputsRender.map((item) => {
-          return (
-            <div className="modal-input-wrap" key={item.id}>
-              <Input
-                placeholder={item.placeholder}
-                type={item.type}
-                handler={item.handler}
-                onChange={changeHandler}
-              />
-            </div>
-          )
-        })}
-        <div className="modal-button">
-          <Button onClick={handleAddProduct}>
-            <span>Add products <img src={plus} alt='add'/></span>
-          </Button>
-        </div>
-      </Modal>
-      }
+      {/*{open && <Modal*/}
+      {/*  onClick={setOpen}*/}
+      {/*  title="Creating a product">*/}
+      {/*  {inputsRender.map((item) => {*/}
+      {/*    return (*/}
+      {/*      <div className="modal-input-wrap" key={item.id}>*/}
+      {/*        <Input*/}
+      {/*          placeholder={item.placeholder}*/}
+      {/*          type={item.type}*/}
+      {/*          handler={item.handler}*/}
+      {/*          onChange={changeHandler}*/}
+      {/*        />*/}
+      {/*      </div>*/}
+      {/*    )*/}
+      {/*  })}*/}
+      {/*  <div className="modal-button">*/}
+      {/*    <Button onClick={handleAddProduct}>*/}
+      {/*      <span>Add products <img src={plus} alt='add'/></span>*/}
+      {/*    </Button>*/}
+      {/*  </div>*/}
+      {/*</Modal>*/}
+      {/*}*/}
 
       <div className="personal-form">
         <div className="input-left">

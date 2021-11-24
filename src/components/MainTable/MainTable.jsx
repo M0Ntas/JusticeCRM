@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -6,13 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import edit from '../../images/icons/edit.svg'
+import editP from '../../images/icons/editP.svg'
 import del from '../../images/icons/delete.svg';
 import './style.scss'
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import { styled } from '@mui/material/styles';
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const MainTable = ({headTable, items, setItems, onClick}) => {
 
@@ -42,7 +43,7 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
 
   const [sell, setSell] = useState(false);
 
-  const [redact, setRedact] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const [form, setForm] = useState({
     numberOfProducts: '',
@@ -116,6 +117,11 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
     setItems(items.filter(el => el.id !== id))
   };
 
+  const history = useHistory();
+
+  const handleSellProduct = () => {
+    history.push('/my-sales')
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -136,12 +142,12 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
                 {item.productName}
               </StyledTableCell>
               <StyledTableCell align="center">{item.store}</StyledTableCell>
-              <StyledTableCell align="center">{item.address}</StyledTableCell>
-              <StyledTableCell align="center">{item.category}</StyledTableCell>
-              <StyledTableCell align="center">{item.creationDate}</StyledTableCell>
+              <StyledTableCell align="center">Taganrog</StyledTableCell>
+              <StyledTableCell align="center">{item.productCategory}</StyledTableCell>
+              <StyledTableCell align="center">{item.date}</StyledTableCell>
               <StyledTableCell align="center">{item.price}</StyledTableCell>
-              <StyledTableCell align="center">{item.remains}</StyledTableCell>
-              <StyledTableCell align="center">{item.volume}</StyledTableCell>
+              <StyledTableCell align="center">{item.quantityOfGoods}</StyledTableCell>
+              <StyledTableCell align="center">{item.weightOfItem}</StyledTableCell>
               <StyledTableCell align="center">
                 {item.salesDate
                   ? item.salesDate
@@ -152,7 +158,7 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
                       >Sell
                       </button>
                       <button className='table-button'
-                              onClick={() => setRedact(true)}><img src={edit} alt='edit'/></button>
+                              onClick={() => setEdit(true)}><img src={editP} alt='edit'/></button>
                       <button className='table-button-delete' onClick={() => deleteProduct(item.id)}><img src={del}
                                                                                                           alt='close'/>
                       </button>
@@ -173,15 +179,15 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
                           )
                         })}
                         <div className="modal-button">
-                          <Button onClick={() => console.log('====>SellProduct<====')}>
+                          <Button onClick={handleSellProduct}>
                             <span>Sell product</span>
                           </Button>
                         </div>
                       </Modal>
                       }
 
-                      {redact && <Modal
-                        onClick={setRedact}
+                      {edit && <Modal
+                        onClick={setEdit}
                         title="Sell the product">
                         {editInputs.map((item) => {
                           return (
@@ -196,7 +202,7 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
                           )
                         })}
                         <div className="modal-button">
-                          <Button onClick={() => console.log('====>SellProduct<====')}>
+                          <Button onClick={() => console.log('====>Save<====')}>
                             <span>Save changes</span>
                           </Button>
                         </div>
@@ -212,5 +218,6 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
       </Table>
     </TableContainer>
   );
-}
+};
+
 export default MainTable;

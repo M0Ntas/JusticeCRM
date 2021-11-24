@@ -1,6 +1,11 @@
 .sign-in-page {
   display: flex;
 
+  label {
+    font-size: 12px;
+    color: rgba(43, 56, 68, 1);
+    margin-bottom: 8px;
+  }
   .right-side {
     display: flex;
     background: #2B3844;
@@ -25,12 +30,6 @@
       display: block;
       width: 380px;
       margin: auto;
-
-      label {
-        font-size: 12px;
-        color: rgba(43, 56, 68, 1);
-        margin-bottom: 8px;
-      }
 
       .forgot {
         text-align: center;

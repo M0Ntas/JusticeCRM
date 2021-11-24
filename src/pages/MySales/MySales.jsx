@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
-import Modal from "../../components/Modal/Modal";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
-import plus from "../../images/icons/plus.svg";
 import MainTable from "../../components/MainTable/MainTable";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { inputsRender } from '../../utils/inputsRender';
-
 
 const MySales = () => {
 
-  const history = useHistory()
+  const history = useHistory();
 
   const headTable = [
     'Product name',
@@ -113,6 +107,13 @@ const MySales = () => {
     },
   ]
 
+  const listFormLS = localStorage.getItem('list') ? JSON.parse(localStorage.getItem('list')) : []
+
+  const [list, setList] = useState(listFormLS)
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(list))
+  })
+
   const [form, setForm] = useState({
     store: '',
     priceItem: '',
@@ -122,9 +123,7 @@ const MySales = () => {
     weightOfItem: '',
   })
 
-
   const [open, setOpen] = useState(false)
-
 
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
@@ -148,30 +147,6 @@ const MySales = () => {
         onClick={() => setOpen(true)}
         button="Save changes"
       />
-
-      {open && <Modal
-        onClick={setOpen}
-        title="Creating a product">
-
-        {inputsRender.map((item) => {
-          return (
-            <div className="modal-input-wrap" key={item.id}>
-              <Input
-                placeholder={item.placeholder}
-                type={item.type}
-                handler={item.handler}
-                onChange={changeHandler}
-              />
-            </div>
-          )
-        })}
-        <div className="modal-button">
-          <Button onClick={handleAddProduct}>
-            <span>Add products <img src={plus} alt='add'/></span>
-          </Button>
-        </div>
-      </Modal>
-      }
       <MainTable headTable={headTable} items={items}/>
     </div>
   );

@@ -8,7 +8,7 @@ const Modal = ({onClick, title, children}) => {
     return <div className="close" onClick={() => onClick(false)}>
       <img src={close} alt={'close'}/>
     </div>
-  }
+  };
 
   return (
     <div className="wrapper">

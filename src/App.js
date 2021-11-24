@@ -6,12 +6,13 @@ import Home from "./pages/Home/Home";
 import MyProducts from "./pages/MyProducts/MyProducts";
 import MySales from "./pages/MySales/MySales";
 import Personal from "./pages/Personal/Personal";
-import SignIn from "./pages/SignIn/Sign-in";
+import SignIn from "./pages/Sign-In/Sign-in";
 import SignUp from "./pages/Sign-up/Sign-up";
 
 function App() {
 
-  const isAuth = true
+  const isAuth = false
+
 
   return (
     <Router>

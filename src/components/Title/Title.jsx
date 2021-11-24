@@ -1,8 +1,6 @@
 import './styles.scss'
 
 const Title = ({ title, subtitle }) => {
-  // props.title
-  // const { title } = props
 
   return (
     <div className="title">
@@ -10,6 +8,6 @@ const Title = ({ title, subtitle }) => {
       <div className="sub-title">{subtitle}</div>
     </div>
   )
-}
+};
 
 export default Title;
