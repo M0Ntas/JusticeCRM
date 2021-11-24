@@ -6,43 +6,45 @@ import Home from "./pages/Home/Home";
 import MyProducts from "./pages/MyProducts/MyProducts";
 import MySales from "./pages/MySales/MySales";
 import Personal from "./pages/Personal/Personal";
-import SignIn from "./pages/SignIn/SignIn";
+import SignIn from "./pages/SignIn/Sign-in";
 import SignUp from "./pages/Sign-up/Sign-up";
 
 function App() {
-  const isAuth = false
+
+  const isAuth = true
+
   return (
     <Router>
       {isAuth
         ?
         <div className="app">
-          <Header />
+          <Header/>
 
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Home/>
             </Route>
             <Route exact path="/my-products">
-              <MyProducts />
+              <MyProducts/>
             </Route>
             <Route exact path="/my-sales">
-              <MySales />
+              <MySales/>
             </Route>
             <Route exact path="/personal">
-              <Personal />
+              <Personal/>
             </Route>
-            <Redirect to="/" />
+            <Redirect to="/"/>
           </Switch>
         </div>
         :
         <Switch>
           <Route exact path="/sign-in">
-            <SignIn />
+            <SignIn/>
           </Route>
           <Route exact path="/sign-up">
-            <SignUp />
+            <SignUp/>
           </Route>
-          <Redirect to="/sign-in" />
+          <Redirect to="/sign-in"/>
         </Switch>
       }
     </Router>

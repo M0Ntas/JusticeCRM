@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import Modal from "../../components/Modal/Modal";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import MainTable from "../../components/MainTable/MainTable";
+import { inputsRender } from '../../utils/inputsRender';
+import plus from "../../images/icons/plus.svg";
 
 const MyProducts = () => {
+
+  // const history = useHistory();
 
   const headTable = [
     'Product name',
@@ -23,28 +28,16 @@ const MyProducts = () => {
   const [form, setForm] = useState({
     numberOfProducts: '',
     dateOfSale: '',
-  })
+  });
+  
+  console.log('====>inputsRender<====', inputsRender)
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const inputs = [
-    {
-      type: 'number',
-      id: 0,
-      placeholder: 'Number of products',
-      handler: 'numberOfProducts'
-    },
-    {
-      type: 'date',
-      id: 1,
-      placeholder: 'Date of sale',
-      handler: 'dateOfSale'
-    },
-  ]
 
   const [items, setItems] = useState([
     {
-      id: Math.floor((Math.random() * 100000) + 1),
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -55,7 +48,7 @@ const MyProducts = () => {
       volume: '5'
     },
     {
-      id: Math.floor((Math.random() * 100000) + 1),
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -66,7 +59,7 @@ const MyProducts = () => {
       volume: '5'
     },
     {
-      id: Math.floor((Math.random() * 100000) + 1),
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -77,7 +70,7 @@ const MyProducts = () => {
       volume: '5'
     },
     {
-      id: Math.floor((Math.random() * 100000) + 1),
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -88,7 +81,7 @@ const MyProducts = () => {
       volume: '5'
     },
     {
-      id: Math.floor((Math.random() * 100000) + 1),
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -99,7 +92,7 @@ const MyProducts = () => {
       volume: '5'
     },
     {
-      id: Math.floor((Math.random() * 100000) + 1),
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -109,7 +102,7 @@ const MyProducts = () => {
       remains: '1231323',
       volume: '5'
     },
-  ])
+  ]);
 
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
@@ -118,7 +111,11 @@ const MyProducts = () => {
       [key]: event.target.value
     })
     console.log('====>form<====', form)
-  }
+  };
+
+  // const handleAddProduct = () => {
+  //   history.push('/my-products')
+  // }
 
   return (
     <div className="container">
@@ -129,8 +126,8 @@ const MyProducts = () => {
       />
       {open && <Modal
         onClick={setOpen}
-        title="Sell the product">
-        {inputs.map((item) => {
+        title="Creating a product">
+        {inputsRender.map((item) => {
           return (
             <div className="modal-input-wrap" key={item.id}>
               <Input
@@ -143,17 +140,16 @@ const MyProducts = () => {
           )
         })}
         <div className="modal-button">
-          <Button onClick={() => console.log('====>SellProduct<====')}>
-            <span>Sell product</span>
+          {/*//заглушка*/}
+          <Button onClick={() => setOpen(false)}>
+            <span>Add products <img src={plus} alt='add'/></span>
           </Button>
         </div>
       </Modal>
       }
-
       <MainTable headTable={headTable} items={items} setItems={setItems}/>
     </div>
-
-  )
+  );
 };
 
 export default MyProducts;

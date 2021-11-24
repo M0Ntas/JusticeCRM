@@ -3,8 +3,16 @@ import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
+import Modal from "../../components/Modal/Modal";
+import plus from "../../images/icons/plus.svg";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { inputsRender } from '../../utils/inputsRender';
 
 const Personal = () => {
+
+  const history = useHistory();
+
+  const [open, setOpen] = useState(false)
 
   const [form, setForm] = useState({
     firstName: '',
@@ -14,31 +22,31 @@ const Personal = () => {
     lastName: '',
     email: '',
     newPassword: '',
-})
+  })
 
 
   const inputsLeft = [
     {
       type: 'text',
-      id: 0,
+      id: Math.random().toString(36).substr(2, 9),
       placeholder: 'First name',
       handler: 'firstName'
     },
     {
       type: 'text',
-      id: 1,
+      id: Math.random().toString(36).substr(2, 9),
       placeholder: 'Company name',
       handler: 'companyName'
     },
     {
       type: 'text',
-      id: 2,
+      id: Math.random().toString(36).substr(2, 9),
       placeholder: 'Address',
       handler: 'address'
     },
     {
       type: 'password',
-      id: 4,
+      id: Math.random().toString(36).substr(2, 9),
       placeholder: 'Enter old password',
       handler: 'oldPassword'
     },
@@ -47,19 +55,19 @@ const Personal = () => {
   const inputsRight = [
     {
       type: 'text',
-      id: 5,
+      id: Math.random().toString(36).substr(2, 9),
       placeholder: 'Last name',
       handler: 'lastName'
     },
     {
       type: 'email',
-      id: 6,
+      id: Math.random().toString(36).substr(2, 9),
       placeholder: 'Email',
       handler: 'email'
     },
     {
       type: 'password',
-      id: 4,
+      id: Math.random().toString(36).substr(2, 9),
       placeholder: 'Enter a new password',
       handler: 'newPassword'
     },
@@ -74,14 +82,42 @@ const Personal = () => {
     console.log('====>form<====', form)
   }
 
+  const handleAddProduct = () => {
+    history.push('/my-products')
+  }
+
   return (
     <div className="container">
       <TitleHeader
         title={"Personal Cabinet"}
         subtitle={"Information about your account"}
-        onClick={() => {}}
+        onClick={() => setOpen(true)}
         button="btn"
       />
+
+      {open && <Modal
+        onClick={setOpen}
+        title="Creating a product">
+        {inputsRender.map((item) => {
+          return (
+            <div className="modal-input-wrap" key={item.id}>
+              <Input
+                placeholder={item.placeholder}
+                type={item.type}
+                handler={item.handler}
+                onChange={changeHandler}
+              />
+            </div>
+          )
+        })}
+        <div className="modal-button">
+          <Button onClick={handleAddProduct}>
+            <span>Add products <img src={plus} alt='add'/></span>
+          </Button>
+        </div>
+      </Modal>
+      }
+
       <div className="personal-form">
         <div className="input-left">
           {inputsLeft.map((item) => {

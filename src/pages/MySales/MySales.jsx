@@ -6,8 +6,13 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import plus from "../../images/icons/plus.svg";
 import MainTable from "../../components/MainTable/MainTable";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { inputsRender } from '../../utils/inputsRender';
+
 
 const MySales = () => {
+
+  const history = useHistory()
 
   const headTable = [
     'Product name',
@@ -23,6 +28,7 @@ const MySales = () => {
 
   const items = [
     {
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -34,6 +40,7 @@ const MySales = () => {
       salesDate: '04.07.2021'
     },
     {
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -45,6 +52,7 @@ const MySales = () => {
       salesDate: '04.07.2021'
     },
     {
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -56,6 +64,7 @@ const MySales = () => {
       salesDate: '04.07.2021'
     },
     {
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -67,6 +76,7 @@ const MySales = () => {
       salesDate: '04.07.2021'
     },
     {
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -78,6 +88,7 @@ const MySales = () => {
       salesDate: '04.07.2021'
     },
     {
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -89,6 +100,7 @@ const MySales = () => {
       salesDate: '04.07.2021'
     },
     {
+      id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
       store: 'test store',
       address: 'street',
@@ -113,44 +125,6 @@ const MySales = () => {
 
   const [open, setOpen] = useState(false)
 
-  const inputs = [
-    {
-      type: 'text',
-      id: 0,
-      placeholder: 'Store',
-      handler: 'store'
-    },
-    {
-      type: 'number',
-      id: 1,
-      placeholder: 'Price',
-      handler: 'priceItem'
-    },
-    {
-      type: 'text',
-      id: 2,
-      placeholder: 'Product name',
-      handler: 'productName'
-    },
-    {
-      type: 'text',
-      id: 3,
-      placeholder: 'Product Category',
-      handler: 'productCategory'
-    },
-    {
-      type: 'number',
-      id: 4,
-      placeholder: 'Quantity of goods',
-      handler: 'quantityOfGoods'
-    },
-    {
-      type: 'number',
-      id: 5,
-      placeholder: 'Weight/Volume of one item',
-      handler: 'weightOfItem'
-    },
-  ]
 
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
@@ -162,6 +136,9 @@ const MySales = () => {
     console.log('====>form<====', form)
   }
 
+  const handleAddProduct = () => {
+    history.push('/my-products')
+  }
 
   return (
     <div className="container">
@@ -174,8 +151,9 @@ const MySales = () => {
 
       {open && <Modal
         onClick={setOpen}
-        title="Editing a product">
-        {inputs.map((item) => {
+        title="Creating a product">
+
+        {inputsRender.map((item) => {
           return (
             <div className="modal-input-wrap" key={item.id}>
               <Input
@@ -188,8 +166,8 @@ const MySales = () => {
           )
         })}
         <div className="modal-button">
-          <Button onClick={() => console.log('====>SaveChanges<====')}>
-            <span>Save changes</span>
+          <Button onClick={handleAddProduct}>
+            <span>Add products <img src={plus} alt='add'/></span>
           </Button>
         </div>
       </Modal>

@@ -5,8 +5,14 @@ import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import plus from "../../images/icons/plus.svg"
+import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { inputsRender } from '../../utils/inputsRender';
+
 
 const Home = () => {
+
+    const history = useHistory();
 
     const [form, setForm] = useState({
         store: '',
@@ -20,40 +26,41 @@ const Home = () => {
     // const title = 'Sales statistics'
     const [open, setOpen] = useState(false)
 
+
     const inputs = [
         {
             type: 'text',
-            id: 0,
+            id: Math.random().toString(36).substr(2, 9),
             placeholder: 'Store',
             handler: 'store'
         },
         {
             type: 'number',
-            id: 1,
+            id: Math.random().toString(36).substr(2, 9),
             placeholder: 'Price',
             handler: 'price'
         },
         {
             type: 'text',
-            id: 2,
+            id: Math.random().toString(36).substr(2, 9),
             placeholder: 'Product name',
             handler: 'productName'
         },
         {
             type: 'text',
-            id: 3,
+            id: Math.random().toString(36).substr(2, 9),
             placeholder: 'Product Category',
             handler: 'productCategory'
         },
         {
             type: 'number',
-            id: 4,
+            id: Math.random().toString(36).substr(2, 9),
             placeholder: 'Quantity of goods',
             handler: 'quantityOfGoods'
         },
         {
             type: 'number',
-            id: 5,
+            id: Math.random().toString(36).substr(2, 9),
             placeholder: 'Weight/Volume of one item',
             handler: 'weightOfItem'
         },
@@ -66,6 +73,10 @@ const Home = () => {
             [key]: event.target.value
         })
         console.log('====>form<====', form)
+    }
+
+    const handleAddProduct = () => {
+        history.push('/my-products')
     }
 
 
@@ -95,7 +106,7 @@ const Home = () => {
             {open && <Modal
                 onClick={setOpen}
                 title="Creating a product">
-                {inputs.map((item) => {
+                {inputsRender.map((item) => {
                     return (
                         <div className="modal-input-wrap" key={item.id}>
                             <Input
@@ -108,7 +119,7 @@ const Home = () => {
                     )
                 })}
                 <div className="modal-button">
-                    <Button onClick={() => console.log('====>AddProducts<====')}>
+                    <Button onClick={handleAddProduct}>
                         <span>Add products <img src={plus} alt='add'/></span>
                     </Button>
                 </div>
