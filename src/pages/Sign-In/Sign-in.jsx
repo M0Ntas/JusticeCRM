@@ -28,11 +28,8 @@ const handleLogIn = () => {
     })
     const isValidEmail = find.email === formUsers.email
     const isValidPassword = find.enterPassword === formUsers.password
-    console.log('====>isValidEmail<====', isValidEmail)
-    console.log('====>isValidPassword<====', isValidPassword)
     if(isValidEmail && isValidPassword){
       setIsAuth(true)
-      localStorage.setItem('isAuth', true)
     }
   }
 }

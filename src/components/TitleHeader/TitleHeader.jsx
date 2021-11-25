@@ -19,7 +19,6 @@ const TitleHeader = ({title, subtitle,}) => {
   const [item, setItem] = useState([]);
 
   const changeHandler = event => {
-    console.log('====>1111111111111111111<====', 1111111111111111111)
     const key = event.target.getAttribute('handler')
     setForm({
       ...form,
@@ -82,7 +81,6 @@ const TitleHeader = ({title, subtitle,}) => {
                 type={item.type}
                 handler={item.handler}
                 onChange={changeHandler}
-                huy="hui"
               />
             </div>
           )

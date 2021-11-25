@@ -25,6 +25,7 @@ const MyProducts = () => {
   const [open, setOpen] = useState(false);
 
   const [items, setItems] = useState(localStorage.products ? JSON.parse(localStorage.products) : []);
+  const [soldItems, setSoldItems] = useState(localStorage.list ? JSON.parse(localStorage.list) : []);
 
   return (
     <div className="container">
@@ -33,7 +34,13 @@ const MyProducts = () => {
         subtitle={"Product table"}
         onClick={() => setOpen(true)}
       />
-      <MainTable headTable={headTable} items={items} setItems={setItems}/>
+      <MainTable
+        headTable={headTable}
+        items={items}
+        setItems={setItems}
+        soldItems={soldItems}
+        setSoldItems={setSoldItems}
+      />
     </div>
   );
 };

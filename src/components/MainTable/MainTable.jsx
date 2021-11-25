@@ -15,7 +15,17 @@ import Input from "../Input/Input";
 import { styled } from '@mui/material/styles';
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
-const MainTable = ({headTable, items, setItems, list, setList}) => {
+const MainTable = (
+  {
+    headTable,
+    items,
+    soldItems,
+    setItems,
+    setOpen,
+    list,
+    setList,
+    setSoldItems
+  }) => {
 
   const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -128,15 +138,42 @@ const MainTable = ({headTable, items, setItems, list, setList}) => {
 
   const history = useHistory();
 
-  const handleSellProduct = () => {
-    history.push('/my-sales')
-  };
-  
+
+
+  console.log('====>items<====', items)
+
+  const [activeEl, setActiveEl] = useState([])
+  console.log('====>activeEl<====', activeEl)
+
   const sellProduct = (id) => {
     const selectProduct = items.find((product) => product.id === id)
-    setSell(true)
     console.log('====>selectProduct<====', selectProduct)
+    setSell(true)
+    setActiveEl(selectProduct)
   }
+const [item, setItem] = useState(null)
+  console.log('====>item<====', item)
+
+  const handleSellProduct = () => {
+    if(localStorage.list !== undefined) {
+      // const list = JSON.parse(localStorage.list)
+      // console.log('====>list<====', list)
+      const sellData = {...activeEl, ...form}
+      console.log('====>sellData<====', sellData)
+      // setItem(sellData)
+      console.log('====>setItem<====', setItem)
+      localStorage.setItem('list', JSON.stringify(sellData))
+      console.log('====>list<====', list)
+    }
+    // } else {
+    //   const array = []
+    //   array.push(form)
+    //   setItem(array)
+    //   localStorage.setItem('list', JSON.stringify(array))
+    // }
+    history.push('/my-sales')
+  };
+  console.log('====>soldItems<====', soldItems)
 
   return (
     <TableContainer component={Paper}>
@@ -161,7 +198,7 @@ const MainTable = ({headTable, items, setItems, list, setList}) => {
               <StyledTableCell align="center">{item.productCategory}</StyledTableCell>
               <StyledTableCell align="center">{item.date}</StyledTableCell>
               <StyledTableCell align="center">{item.price}</StyledTableCell>
-              <StyledTableCell align="center">{item.quantityOfGoods}</StyledTableCell>
+              <StyledTableCell align="center">{item.numberOfProducts ? item.numberOfProducts : item.quantityOfGoods}</StyledTableCell>
               <StyledTableCell align="center">{item.weightOfItem}</StyledTableCell>
               <StyledTableCell align="center">
                 {item.salesDate

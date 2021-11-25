@@ -104,12 +104,11 @@ const MySales = () => {
     },
   ]
 
-  const listFormLS = localStorage.getItem('list') ? JSON.parse(localStorage.getItem('list')) : []
+  // const listFormLS = localStorage.list ? JSON.parse(localStorage.list) : []
 
-  const [list, setList] = useState(listFormLS)
-  useEffect(() => {
-    localStorage.setItem('list', JSON.stringify(list))
-  })
+  const [list, setList] = useState(localStorage.list ? JSON.parse(localStorage.list) : [])
+console.log('====>list<====', list)
+
 
   const [open, setOpen] = useState(false)
 
@@ -122,7 +121,7 @@ const MySales = () => {
         onClick={() => setOpen(true)}
         button="Save changes"
       />
-      <MainTable headTable={headTable} items={item}/>
+      <MainTable headTable={headTable} items={list} setItems={setList} />
     </div>
   );
 };
