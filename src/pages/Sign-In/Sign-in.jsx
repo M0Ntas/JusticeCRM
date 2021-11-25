@@ -3,23 +3,43 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import img from '../../images/icons/signin.svg'
 import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
-const SignIn = () => {
+const SignIn = ({setIsAuth}) => {
 
-  const [user, setUser] = useState('')
+  // const [user, setUser] = useState([])
 
-  const changeHandler = event => {
-    const key = event.target.getAttribute('handler')
-    setUser({
-      ...user,
-      [key]: event.target.value
+  const [formUsers, setFormUsers] = useState({
+    email: '',
+    password: '',
+  })
+
+const changeHandler = event => {
+  const key = event.target.getAttribute('handler')
+  setFormUsers({
+    ...formUsers,
+    [key]: event.target.value
+  })
+};
+const handleLogIn = () => {
+  if (localStorage.users !== undefined){
+    const find = JSON.parse(localStorage.users).find((item) => {
+      return item.email === formUsers.email
     })
-    console.log('====>user<====', user)
+    const isValidEmail = find.email === formUsers.email
+    const isValidPassword = find.enterPassword === formUsers.password
+    console.log('====>isValidEmail<====', isValidEmail)
+    console.log('====>isValidPassword<====', isValidPassword)
+    if(isValidEmail && isValidPassword){
+      setIsAuth(true)
+      localStorage.setItem('isAuth', true)
+    }
   }
+}
+  const history = useHistory();
 
-  const handleLogIn = () => {
-   const a = localStorage.getItem('user')
-    console.log('====>a<====', a)
+  const handleRegistration = () => {
+    history.push('/sign-up')
   }
   
   return (
@@ -38,8 +58,8 @@ const SignIn = () => {
             <Input onChange={changeHandler} handler="password"  type='password' placeholder='Enter password'/>
           </div>
           <Button onClick={handleLogIn}>Log in</Button>
-          <div className='forgot'>
-            Forgot password?
+          <div className='forgot' >
+            <span onClick={handleRegistration} >Forgot password?</span>
           </div>
         </div>
       </div>

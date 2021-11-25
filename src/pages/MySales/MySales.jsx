@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import MainTable from "../../components/MainTable/MainTable";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const MySales = () => {
-
-  const history = useHistory();
 
   const headTable = [
     'Product name',
@@ -20,7 +17,7 @@ const MySales = () => {
     'Last sale'
   ]
 
-  const items = [
+  const item = [
     {
       id: Math.random().toString(36).substr(2, 9),
       productName: 'test',
@@ -114,30 +111,8 @@ const MySales = () => {
     localStorage.setItem('list', JSON.stringify(list))
   })
 
-  const [form, setForm] = useState({
-    store: '',
-    priceItem: '',
-    productName: '',
-    productCategory: '',
-    quantityOfGoods: '',
-    weightOfItem: '',
-  })
-
   const [open, setOpen] = useState(false)
 
-  const changeHandler = event => {
-    const key = event.target.getAttribute('handler')
-    console.log('====>key<====', key)
-    setForm({
-      ...form,
-      [key]: event.target.value
-    })
-    console.log('====>form<====', form)
-  }
-
-  const handleAddProduct = () => {
-    history.push('/my-products')
-  }
 
   return (
     <div className="container">
@@ -147,7 +122,7 @@ const MySales = () => {
         onClick={() => setOpen(true)}
         button="Save changes"
       />
-      <MainTable headTable={headTable} items={items}/>
+      <MainTable headTable={headTable} items={item}/>
     </div>
   );
 };

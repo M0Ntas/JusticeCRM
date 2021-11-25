@@ -32,10 +32,13 @@
       margin: auto;
 
       .forgot {
-        text-align: center;
         margin-top: 32px;
-        font-size: 14px;
-        color: #5382E7;
+        text-align: center;
+        span{
+          font-size: 14px;
+          color: #5382E7;
+          cursor: pointer;
+        }
       }
 
       .email {

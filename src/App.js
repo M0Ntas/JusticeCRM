@@ -1,7 +1,7 @@
 import './global.scss'
 import Header from "./components/Header/Header";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 import Home from "./pages/Home/Home";
 import MyProducts from "./pages/MyProducts/MyProducts";
 import MySales from "./pages/MySales/MySales";
@@ -11,15 +11,14 @@ import SignUp from "./pages/Sign-up/Sign-up";
 
 function App() {
 
-  const isAuth = false
-
+  const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') || false)
 
   return (
     <Router>
       {isAuth
         ?
         <div className="app">
-          <Header/>
+          <Header setIsAuth={setIsAuth}/>
 
           <Switch>
             <Route exact path="/">
@@ -40,7 +39,7 @@ function App() {
         :
         <Switch>
           <Route exact path="/sign-in">
-            <SignIn/>
+            <SignIn setIsAuth={setIsAuth}/>
           </Route>
           <Route exact path="/sign-up">
             <SignUp/>

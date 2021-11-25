@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -15,7 +15,7 @@ import Input from "../Input/Input";
 import { styled } from '@mui/material/styles';
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
-const MainTable = ({headTable, items, setItems, onClick}) => {
+const MainTable = ({headTable, items, setItems, list, setList}) => {
 
   const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -50,66 +50,75 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
     dateOfSale: '',
   });
 
+  // useEffect(() => {
+  //
+  // },[form])
   const sellInputs = [
     {
       type: 'number',
       id: 0,
       placeholder: 'Number of products',
-      handler: 'numberOfProducts'
+      handler: 'numberOfProducts',
     },
+    // {
+    //   type: 'date',
+    //   id: 1,
+    //   placeholder: 'Date of sale',
+    //   handler: 'dateOfSale'
+    // },
     {
-      type: 'date',
+      type: 'text',
       id: 1,
       placeholder: 'Date of sale',
-      handler: 'dateOfSale'
+      handler: 'dateOfSale',
     },
   ];
 
   const editInputs = [
     {
       type: 'text',
-      id: Math.random().toString(36).substr(2, 9),
+      id: Date.now(),
       placeholder: 'Store',
       handler: 'store'
     },
     {
       type: 'number',
-      id: Math.random().toString(36).substr(2, 9),
+      id: Date.now(),
       placeholder: 'Price',
       handler: 'priceItem'
     },
     {
       type: 'text',
-      id: Math.random().toString(36).substr(2, 9),
+      id: Date.now(),
       placeholder: 'Product name',
       handler: 'productName'
     },
     {
       type: 'text',
-      id: Math.random().toString(36).substr(2, 9),
+      id: Date.now(),
       placeholder: 'Product Category',
       handler: 'productCategory'
     },
     {
       type: 'number',
-      id: Math.random().toString(36).substr(2, 9),
+      id: Date.now(),
       placeholder: 'Quantity of goods',
       handler: 'quantityOfGoods'
     },
     {
       type: 'number',
-      id: Math.random().toString(36).substr(2, 9),
+      id: Date.now(),
       placeholder: 'Weight/Volume of one item',
       handler: 'weightOfItem'
     },
   ]
 
-  const changeHandler = event => {
+  const changeSaveHandler = event => {
     const key = event.target.getAttribute('handler')
-    setForm({
-      ...form,
-      [key]: event.target.value
-    })
+    setForm((prevState) => ({
+      ...prevState,
+      [key]: event.target.value,
+    }))
     console.log('====>form<====', form)
   };
 
@@ -122,6 +131,12 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
   const handleSellProduct = () => {
     history.push('/my-sales')
   };
+  
+  const sellProduct = (id) => {
+    const selectProduct = items.find((product) => product.id === id)
+    setSell(true)
+    console.log('====>selectProduct<====', selectProduct)
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -137,7 +152,7 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
         </TableHead>
         <TableBody>
           {items.map((item) => (
-            <StyledTableRow key={items.productName}>
+            <StyledTableRow key={items.productName} id={item.id}>
               <StyledTableCell component="th" scope="row">
                 {item.productName}
               </StyledTableCell>
@@ -154,60 +169,18 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
                   : (
                     <div className="buttons">
                       <button className='table-button'
-                              onClick={() => setSell(true)}
+                              onClick={() => sellProduct(item.id)}
                       >Sell
                       </button>
                       <button className='table-button'
-                              onClick={() => setEdit(true)}><img src={editP} alt='edit'/></button>
+                              onClick={() => sellProduct(item.id)}><img src={editP} alt='edit'/></button>
                       <button className='table-button-delete' onClick={() => deleteProduct(item.id)}><img src={del}
                                                                                                           alt='close'/>
                       </button>
 
-                      {sell && <Modal
-                        onClick={setSell}
-                        title="Sell the product">
-                        {sellInputs.map((item) => {
-                          return (
-                            <div className="modal-input-wrap" key={item.id}>
-                              <Input
-                                placeholder={item.placeholder}
-                                type={item.type}
-                                handler={item.handler}
-                                onChange={changeHandler}
-                              />
-                            </div>
-                          )
-                        })}
-                        <div className="modal-button">
-                          <Button onClick={handleSellProduct}>
-                            <span>Sell product</span>
-                          </Button>
-                        </div>
-                      </Modal>
-                      }
 
-                      {edit && <Modal
-                        onClick={setEdit}
-                        title="Sell the product">
-                        {editInputs.map((item) => {
-                          return (
-                            <div className="modal-input-wrap" key={item.id}>
-                              <Input
-                                placeholder={item.placeholder}
-                                type={item.type}
-                                handler={item.handler}
-                                onChange={changeHandler}
-                              />
-                            </div>
-                          )
-                        })}
-                        <div className="modal-button">
-                          <Button onClick={() => console.log('====>Save<====')}>
-                            <span>Save changes</span>
-                          </Button>
-                        </div>
-                      </Modal>
-                      }
+
+
                     </div>
                   )
                 }
@@ -216,6 +189,52 @@ const MainTable = ({headTable, items, setItems, onClick}) => {
           ))}
         </TableBody>
       </Table>
+
+      {edit && <Modal
+        onClick={setEdit}
+        title="Sell the product">
+        {editInputs.map((item) => {
+          return (
+            <div className="modal-input-wrap" key={item.id}>
+              <Input
+                placeholder={item.placeholder}
+                type={item.type}
+                handler={item.handler}
+                onChange={changeSaveHandler}
+              />
+            </div>
+          )
+        })}
+        <div className="modal-button">
+          <Button onClick={() => console.log('====>Save<====')}>
+            <span>Save changes</span>
+          </Button>
+        </div>
+      </Modal>
+      }
+
+      {sell && <Modal
+        // onClick={setSell}
+        title="Sell the product">
+        {sellInputs.map((item) => {
+          return (
+            <div className="modal-input-wrap" key={item.id}>
+              <Input
+                placeholder={item.placeholder}
+                type={item.type}
+                handler={item.handler}
+                onChange={changeSaveHandler}
+              />
+            </div>
+          )
+        })}
+        <div className="modal-button">
+          <Button onClick={handleSellProduct}>
+            <span>Sell product</span>
+          </Button>
+        </div>
+      </Modal>
+      }
     </TableContainer>
   );
 };

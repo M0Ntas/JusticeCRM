@@ -10,7 +10,7 @@ import plus from "../../images/icons/plus.svg";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import moment from "moment";
 
-const TitleHeader = ({title, subtitle, onClick}) => {
+const TitleHeader = ({title, subtitle,}) => {
 
   const history = useHistory();
 
@@ -19,6 +19,7 @@ const TitleHeader = ({title, subtitle, onClick}) => {
   const [item, setItem] = useState([]);
 
   const changeHandler = event => {
+    console.log('====>1111111111111111111<====', 1111111111111111111)
     const key = event.target.getAttribute('handler')
     setForm({
       ...form,
@@ -37,7 +38,6 @@ const TitleHeader = ({title, subtitle, onClick}) => {
       setItem(setProducts)
       localStorage.setItem('products', JSON.stringify(setProducts))
       history.push('/my-products')
-      document.location.reload();
       setOpen(false)
     } else {
       const array = []
@@ -82,6 +82,7 @@ const TitleHeader = ({title, subtitle, onClick}) => {
                 type={item.type}
                 handler={item.handler}
                 onChange={changeHandler}
+                huy="hui"
               />
             </div>
           )

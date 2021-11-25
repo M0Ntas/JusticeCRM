@@ -8,7 +8,7 @@ import user from "../../images/icons/user.svg"
 import logout from "../../images/icons/logout.svg"
 import './styles.scss'
 
-const Header = () => {
+const Header = ({setIsAuth}) => {
   const menu = [
     {
       icon: home,
@@ -32,6 +32,12 @@ const Header = () => {
     },
   ]
 
+  const handleLogOut = () =>{
+    setIsAuth(false)
+    localStorage.removeItem('isAuth')
+  }
+
+
   return (
     <div className="header">
       <div className="logo">
@@ -47,7 +53,7 @@ const Header = () => {
           )
         })}
       </div>
-      <div className="logout">
+      <div onClick={handleLogOut} className="logout">
         <img src={logout} alt="logout"/>
         <span>Log out</span>
       </div>

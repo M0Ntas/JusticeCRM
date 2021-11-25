@@ -7,21 +7,42 @@ import { useState } from "react";
 
 const SignUp = () => {
 
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    companyName: '',
+    email: '',
+    enterPassword: '',
+    repeatPassword: '',
+    id: Date.now(),
+  })
+
   const [users, setUsers] = useState([])
   console.log('====>users<====', users)
 
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
-
-    setUsers({
-      ...users,
+    setForm({
+      ...form,
       [key]: event.target.value
     })
   }
 
   const handleCreateAccount = () => {
-    console.log('====>form<====', users)
-    localStorage.setItem('users', JSON.stringify(users))
+    if (localStorage.users !== undefined){
+      const users = JSON.parse(localStorage.users)
+      const combineUsers = [
+        ...users,
+        form
+      ]
+      setUsers(combineUsers)
+      localStorage.setItem('users', JSON.stringify(combineUsers))
+    }else {
+      const array = []
+      array.push(form)
+      setUsers(array)
+      localStorage.setItem('users', JSON.stringify(array))
+    }
     history.push('/sign-in')
   }
 
