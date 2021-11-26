@@ -5,6 +5,10 @@ import MainTable from "../../components/MainTable/MainTable";
 
 const MySales = () => {
 
+  const [items, setItems] = useState(localStorage.items ? JSON.parse(localStorage.items) : [])
+
+  const [open, setOpen] = useState(false)
+  
   const headTable = [
     'Product name',
     'Store',
@@ -17,102 +21,6 @@ const MySales = () => {
     'Last sale'
   ]
 
-  const item = [
-    {
-      id: Math.random().toString(36).substr(2, 9),
-      productName: 'test',
-      store: 'test store',
-      address: 'street',
-      category: 'test category',
-      creationDate: '11.11.11',
-      price: '322',
-      remains: '1231323',
-      volume: '5',
-      salesDate: '04.07.2021'
-    },
-    {
-      id: Math.random().toString(36).substr(2, 9),
-      productName: 'test',
-      store: 'test store',
-      address: 'street',
-      category: 'test category',
-      creationDate: '11.11.11',
-      price: '322',
-      remains: '1231323',
-      volume: '5',
-      salesDate: '04.07.2021'
-    },
-    {
-      id: Math.random().toString(36).substr(2, 9),
-      productName: 'test',
-      store: 'test store',
-      address: 'street',
-      category: 'test category',
-      creationDate: '11.11.11',
-      price: '322',
-      remains: '1231323',
-      volume: '5',
-      salesDate: '04.07.2021'
-    },
-    {
-      id: Math.random().toString(36).substr(2, 9),
-      productName: 'test',
-      store: 'test store',
-      address: 'street',
-      category: 'test category',
-      creationDate: '11.11.11',
-      price: '322',
-      remains: '1231323',
-      volume: '5',
-      salesDate: '04.07.2021'
-    },
-    {
-      id: Math.random().toString(36).substr(2, 9),
-      productName: 'test',
-      store: 'test store',
-      address: 'street',
-      category: 'test category',
-      creationDate: '11.11.11',
-      price: '322',
-      remains: '1231323',
-      volume: '5',
-      salesDate: '04.07.2021'
-    },
-    {
-      id: Math.random().toString(36).substr(2, 9),
-      productName: 'test',
-      store: 'test store',
-      address: 'street',
-      category: 'test category',
-      creationDate: '11.11.11',
-      price: '322',
-      remains: '1231323',
-      volume: '5',
-      salesDate: '04.07.2021'
-    },
-    {
-      id: Math.random().toString(36).substr(2, 9),
-      productName: 'test',
-      store: 'test store',
-      address: 'street',
-      category: 'test category',
-      creationDate: '11.11.11',
-      price: '322',
-      remains: '1231323',
-      volume: '5',
-      salesDate: '04.07.2021'
-    },
-  ]
-
-  // const listFormLS = localStorage.list ? JSON.parse(localStorage.list) : []
-
-  const [list, setList] = useState(localStorage.list ? JSON.parse(localStorage.list) : [])
-console.log('====>list<====', list)
-
-
-  const [open, setOpen] = useState(false)
-
-
   return (
     <div className="container">
       <TitleHeader
@@ -121,7 +29,7 @@ console.log('====>list<====', list)
         onClick={() => setOpen(true)}
         button="Save changes"
       />
-      <MainTable headTable={headTable} items={list} setItems={setList} />
+      <MainTable headTable={headTable} items={items} setItems={setItems}/>
     </div>
   );
 };

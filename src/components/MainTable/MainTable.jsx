@@ -45,24 +45,25 @@ const MainTable = (
       boxShadow: "none",
       borderRadius: "3",
     },
-    // hide last border
     '&:last-child td, &:last-child th': {
       border: 0,
     },
   }));
+  const [item, setItem] = useState(null)
+
+  const [activeEl, setActiveEl] = useState([])
 
   const [sell, setSell] = useState(false);
 
   const [edit, setEdit] = useState(false);
 
+  const history = useHistory();
+
   const [form, setForm] = useState({
     numberOfProducts: '',
-    dateOfSale: '',
+    salesDate: '',
   });
 
-  // useEffect(() => {
-  //
-  // },[form])
   const sellInputs = [
     {
       type: 'number',
@@ -70,17 +71,11 @@ const MainTable = (
       placeholder: 'Number of products',
       handler: 'numberOfProducts',
     },
-    // {
-    //   type: 'date',
-    //   id: 1,
-    //   placeholder: 'Date of sale',
-    //   handler: 'dateOfSale'
-    // },
     {
       type: 'text',
       id: 1,
       placeholder: 'Date of sale',
-      handler: 'dateOfSale',
+      handler: 'salesDate',
     },
   ];
 
@@ -129,21 +124,11 @@ const MainTable = (
       ...prevState,
       [key]: event.target.value,
     }))
-    console.log('====>form<====', form)
   };
 
   const deleteProduct = (id) => {
     setItems(items.filter(el => el.id !== id))
   };
-
-  const history = useHistory();
-
-
-
-  console.log('====>items<====', items)
-
-  const [activeEl, setActiveEl] = useState([])
-  console.log('====>activeEl<====', activeEl)
 
   const sellProduct = (id) => {
     const selectProduct = items.find((product) => product.id === id)
@@ -151,29 +136,45 @@ const MainTable = (
     setSell(true)
     setActiveEl(selectProduct)
   }
-const [item, setItem] = useState(null)
-  console.log('====>item<====', item)
+
+const countProduct = () => {
+    const count = activeEl.quantityOfGoods - form.numberOfProducts
+  if( count > 0 ) {
+    const newCurrentProduct = {...activeEl, quantityOfGoods: count}
+    const newProducts = items.map((product) => {
+      if(product.id === newCurrentProduct.id){
+        return newCurrentProduct
+      }
+      return product
+    })
+    localStorage.setItem('products', JSON.stringify(newProducts))
+  }
+  if (count === 0){
+    const newProducts = items.filter((product) => product.id !== activeEl.id)
+    localStorage.setItem('products', JSON.stringify(newProducts))
+  }
+  if (count < 0){
+    console.log('====>count<====', count)
+  }
+}
 
   const handleSellProduct = () => {
-    if(localStorage.list !== undefined) {
-      // const list = JSON.parse(localStorage.list)
-      // console.log('====>list<====', list)
-      const sellData = {...activeEl, ...form}
-      console.log('====>sellData<====', sellData)
-      // setItem(sellData)
-      console.log('====>setItem<====', setItem)
-      localStorage.setItem('list', JSON.stringify(sellData))
-      console.log('====>list<====', list)
+    countProduct()
+    let sellData
+    if (localStorage.items !== undefined) {
+      const mySales = JSON.parse(localStorage.items)
+      sellData = {...activeEl, ...form}
+      mySales.push(sellData)
+      localStorage.setItem('items', JSON.stringify(mySales))
+    } else {
+      sellData = {...activeEl, ...form}
+      const array = []
+      array.push(sellData)
+      setItem(array)
+      localStorage.setItem('items', JSON.stringify(array))
     }
-    // } else {
-    //   const array = []
-    //   array.push(form)
-    //   setItem(array)
-    //   localStorage.setItem('list', JSON.stringify(array))
-    // }
     history.push('/my-sales')
   };
-  console.log('====>soldItems<====', soldItems)
 
   return (
     <TableContainer component={Paper}>
@@ -198,7 +199,8 @@ const [item, setItem] = useState(null)
               <StyledTableCell align="center">{item.productCategory}</StyledTableCell>
               <StyledTableCell align="center">{item.date}</StyledTableCell>
               <StyledTableCell align="center">{item.price}</StyledTableCell>
-              <StyledTableCell align="center">{item.numberOfProducts ? item.numberOfProducts : item.quantityOfGoods}</StyledTableCell>
+              <StyledTableCell
+                align="center">{item.numberOfProducts ? item.numberOfProducts : item.quantityOfGoods}</StyledTableCell>
               <StyledTableCell align="center">{item.weightOfItem}</StyledTableCell>
               <StyledTableCell align="center">
                 {item.salesDate
@@ -214,8 +216,6 @@ const [item, setItem] = useState(null)
                       <button className='table-button-delete' onClick={() => deleteProduct(item.id)}><img src={del}
                                                                                                           alt='close'/>
                       </button>
-
-
 
 
                     </div>
@@ -251,7 +251,7 @@ const [item, setItem] = useState(null)
       }
 
       {sell && <Modal
-        // onClick={setSell}
+        onClick={setSell}
         title="Sell the product">
         {sellInputs.map((item) => {
           return (

@@ -3,22 +3,31 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import img from '../../images/icons/signin.svg'
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SignUp = () => {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailDirty, setEmailDirty] = useState(false);
+  const [passwordDirty, setPasswordDirty] = useState(false);
+  const [emailError, setEmailError] = useState('E-mail не может быть пустым');
+  const [passwordError, setPasswordError] = useState('Пароль не может быть пустым');
+  const [validForm, setValidForm] = useState(false);
+
+  const history = useHistory();
 
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
     companyName: '',
     email: '',
-    enterPassword: '',
+    password: '',
     repeatPassword: '',
     id: Date.now(),
-  })
+  });
 
   const [users, setUsers] = useState([])
-  console.log('====>users<====', users)
 
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
@@ -26,7 +35,7 @@ const SignUp = () => {
       ...form,
       [key]: event.target.value
     })
-  }
+  };
 
   const handleCreateAccount = () => {
     if (localStorage.users !== undefined){
@@ -44,13 +53,54 @@ const SignUp = () => {
       localStorage.setItem('users', JSON.stringify(array))
     }
     history.push('/sign-in')
-  }
-
-  const history = useHistory();
+  };
 
   const logIn = () => {
     history.push('/sign-in')
-  }
+  };
+
+  const emailHandler = (e) => {
+    setEmail(e.target.value)
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(String(e.target.value).toLowerCase())){
+      setEmailError('Неккорректный E-mail')
+    } else {
+      setEmailError('')
+      changeHandler(e)
+    }
+  };
+
+  const passwordHandler = (e) => {
+    setPassword(e.target.value)
+    if (e.target.value.length <3 || e.target.value.length > 8){
+      setPasswordError('Пароль должен быть длиннее 3 и менее 8')
+      if (!e.target.value){
+        setPasswordError('Пароль не может быть пустым')
+      }
+    } else {
+      setPasswordError('')
+      changeHandler(e)
+    }
+  };
+
+  const blurHandler = (e) => {
+    switch (e.target.name){
+      case 'email':
+        setEmailDirty(true)
+        break
+      case 'password':
+        setPasswordDirty(true)
+        break
+    }
+  };
+
+  useEffect(() => {
+    if(emailError || passwordError){
+      setValidForm(false)
+    }else {
+      setValidForm(true)
+    }
+  },[emailError, passwordError])
 
   return (
     <div className='sign-up-page'>
@@ -71,21 +121,33 @@ const SignUp = () => {
           </div>
           <div className="input-two">
             <label>Company name</label>
-            <Input onChange={changeHandler} type='text' placeholder='Company name"' handler="companyName"/>
+            <Input onChange={changeHandler} type='text' placeholder='Company name' handler="companyName"/>
           </div>
           <div className="input-two">
-            <label>Email</label>
-            <Input onChange={changeHandler} type='email' placeholder='Email' handler="email"/>
+            {(emailDirty && emailError) ? <label style={{color: 'red'}} className="label">{emailError}</label> :  <label className="label">E-mail</label>}
+            <Input value={email}
+                   onChange={emailHandler}
+                   onBlur={e => blurHandler(e)}
+                   name='email'
+                   handler="email"
+                   type='email'
+                   placeholder='Email'/>
           </div>
           <div className="input-two">
-            <label>Password</label>
-            <Input onChange={changeHandler} type='password' placeholder='Enter password' handler="enterPassword"/>
+            {(passwordDirty && passwordError) ? <label style={{color: 'red'}} className="label">{passwordError}</label> :  <label className="label">Password</label>}
+            <Input vvalue={password}
+                   onChange={passwordHandler}
+                   onBlur={e => blurHandler(e)}
+                   handler="password"
+                   name='password'
+                   type='password'
+                   placeholder='Enter password'/>
           </div>
           <div className="input-two">
             <label>Repeat password</label>
             <Input onChange={changeHandler} type='password' placeholder='Repeat password' handler="repeatPassword"/>
           </div>
-          <Button onClick={handleCreateAccount}>Create account</Button>
+          <button className='button-create-account' disabled={!validForm} onClick={handleCreateAccount}>Create account</button>
           <div className='forgot'>
             Already have an account?
             <button className="login" onClick={logIn}>Log in</button>

@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .sign-up-page {
   display: flex;
 
@@ -90,4 +92,18 @@
       }
     }
   }
+}
+.button-create-account{
+  color: white;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 51px;
+  background: $blue;
+  border: 1px solid $blue;
+  border-radius: 3px;
+  padding: 16px 32px;
+  cursor: pointer;
 }
