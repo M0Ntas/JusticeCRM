@@ -25,6 +25,7 @@ const SignIn = ({setIsAuth}) => {
   const [formUsers, setFormUsers] = useState({
     email: '',
     password: '',
+    id: '',
   });
 
 const changeHandler = event => {
@@ -43,7 +44,9 @@ const handleLogIn = () => {
     const isValidEmail = find.email === formUsers.email
     const isValidPassword = find.password === formUsers.password
     if(isValidEmail && isValidPassword){
+      localStorage.setItem('user', JSON.stringify(find))
       localStorage.setItem('isAuth', 'true')
+      console.log('====>formUsers<====', formUsers)
       setIsAuth(true)
     }else {
       setPasswordError('Неверный пароль')

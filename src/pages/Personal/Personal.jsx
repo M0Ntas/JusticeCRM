@@ -1,77 +1,82 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import Modal from "../../components/Modal/Modal";
-import plus from "../../images/icons/plus.svg";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { inputsRender } from '../../utils/inputsRender';
 
 const Personal = () => {
 
-  const history = useHistory();
+  const personal = JSON.parse(localStorage.user);
+  const [open, setOpen] = useState(false);
+  const [inputsLeft, setInputsLeft] = useState([
+    {
+      type: 'text',
+      id: Date.now,
+      placeholder: 'First name',
+      handler: 'firstName',
+      value: personal.firstName
+    },
+    {
+      type: 'text',
+      id: Date.now,
+      placeholder: 'Company name',
+      handler: 'companyName',
+      value: personal.companyName
+    },
+    {
+      type: 'text',
+      id: Date.now,
+      placeholder: 'Address',
+      handler: 'address',
+    },
+    {
+      type: 'password',
+      id: Date.now,
+      placeholder: 'Enter old password',
+      handler: 'oldPassword',
+    },
+  ])
 
-  const [open, setOpen] = useState(false)
+  const [inputsRight, setInputsRight] = useState([
+    {
+      type: 'text',
+      id: Date.now,
+      placeholder: 'Last name',
+      handler: 'lastName',
+      value: personal.lastName
+    },
+    {
+      type: 'email',
+      id: Date.now,
+      placeholder: 'Email',
+      handler: 'email',
+      value: personal.email
+    },
+    {
+      type: 'password',
+      id: Date.now,
+      placeholder: 'Enter a new password',
+      handler: 'newPassword',
+    },
+  ])
+
+  console.log('====>personal<====', personal)
 
   const [form, setForm] = useState({
-    firstName: '',
-    companyName: '',
+    firstName: personal.firstName,
+    companyName: personal.companyName,
     address: '',
     oldPassword: '',
     lastName: '',
     email: '',
     newPassword: '',
-  })
+    value: ''
+  });
 
-
-  const inputsLeft = [
-    {
-      type: 'text',
-      id: Math.random().toString(36).substr(2, 9),
-      placeholder: 'First name',
-      handler: 'firstName'
-    },
-    {
-      type: 'text',
-      id: Math.random().toString(36).substr(2, 9),
-      placeholder: 'Company name',
-      handler: 'companyName'
-    },
-    {
-      type: 'text',
-      id: Math.random().toString(36).substr(2, 9),
-      placeholder: 'Address',
-      handler: 'address'
-    },
-    {
-      type: 'password',
-      id: Math.random().toString(36).substr(2, 9),
-      placeholder: 'Enter old password',
-      handler: 'oldPassword'
-    },
-  ]
-
-  const inputsRight = [
-    {
-      type: 'text',
-      id: Math.random().toString(36).substr(2, 9),
-      placeholder: 'Last name',
-      handler: 'lastName'
-    },
-    {
-      type: 'email',
-      id: Math.random().toString(36).substr(2, 9),
-      placeholder: 'Email',
-      handler: 'email'
-    },
-    {
-      type: 'password',
-      id: Math.random().toString(36).substr(2, 9),
-      placeholder: 'Enter a new password',
-      handler: 'newPassword'
-    },
-  ]
+  const changeLeftInput = event => {
+    const {value} = event.target
+    const key = event.target.getAttribute('handler')
+  };
 
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
@@ -80,12 +85,9 @@ const Personal = () => {
       [key]: event.target.value
     })
     console.log('====>form<====', form)
-  }
+  };
 
-  const handleAddProduct = () => {
-    history.push('/my-products')
-  }
-
+  console.log('====>inputsLeft<====', inputsLeft)
   return (
     <div className="container">
       <TitleHeader
@@ -94,30 +96,6 @@ const Personal = () => {
         onClick={() => setOpen(true)}
         button="btn"
       />
-
-      {/*{open && <Modal*/}
-      {/*  onClick={setOpen}*/}
-      {/*  title="Creating a product">*/}
-      {/*  {inputsRender.map((item) => {*/}
-      {/*    return (*/}
-      {/*      <div className="modal-input-wrap" key={item.id}>*/}
-      {/*        <Input*/}
-      {/*          placeholder={item.placeholder}*/}
-      {/*          type={item.type}*/}
-      {/*          handler={item.handler}*/}
-      {/*          onChange={changeHandler}*/}
-      {/*        />*/}
-      {/*      </div>*/}
-      {/*    )*/}
-      {/*  })}*/}
-      {/*  <div className="modal-button">*/}
-      {/*    <Button onClick={handleAddProduct}>*/}
-      {/*      <span>Add products <img src={plus} alt='add'/></span>*/}
-      {/*    </Button>*/}
-      {/*  </div>*/}
-      {/*</Modal>*/}
-      {/*}*/}
-
       <div className="personal-form">
         <div className="input-left">
           {inputsLeft.map((item) => {
@@ -125,10 +103,11 @@ const Personal = () => {
               <div className="personal-input" key={item.id}>
                 <label id={item.id}>{item.placeholder}</label>
                 <Input
+                  value={form[item.handler]}
                   placeholder={item.placeholder}
                   type={item.type}
                   handler={item.handler}
-                  onChange={changeHandler}
+                  onChange={changeLeftInput}
                 />
               </div>
             )
@@ -140,6 +119,7 @@ const Personal = () => {
               <div className="personal-input" key={item.id}>
                 <label id={item.id}>{item.placeholder}</label>
                 <Input
+                  value={item.value}
                   placeholder={item.placeholder}
                   type={item.type}
                   handler={item.handler}
@@ -151,7 +131,7 @@ const Personal = () => {
         </div>
       </div>
       <div className='personal-button'>
-        <Button onClick={() => console.log('====>Save changes<====')}>
+        <Button onClick={console.log('====>form<====', form)}>
           <span>Save changes</span>
         </Button>
       </div>
