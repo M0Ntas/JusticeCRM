@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
 import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import ChartThree from "../../components/ChartThree/ChartThree";
+import ChartTwo from "../../components/ChartTwo/ChartTwo";
+import ChartOne from "../../components/ChartOne/ChartOne";
 
 
 const Home = () => {
-
-  // const history = useHistory();
-  //
-  // const [form, setForm] = useState({
-  //   store: '',
-  //   price: '',
-  //   productName: '',
-  //   productCategory: '',
-  //   quantityOfGoods: '',
-  //   weightOfItem: '',
-  //   id: Date.now(),
-  // })
 
   const [open, setOpen] = useState(false)
 
@@ -30,15 +20,15 @@ const Home = () => {
       <div className="tables">
         <div className="tables-left">
           <div className="one">
-            1
+            <ChartOne />
           </div>
           <div className="two">
-            2
+            <ChartTwo />
           </div>
         </div>
         <div className="tables-right">
           <div className="three">
-            3
+            <ChartThree />
           </div>
         </div>
       </div>
