@@ -110,40 +110,44 @@ const SignUp = () => {
           </div>
           <div className="input-one">
             <div className="input-first">
-              <label>First name</label>
-              <Input onChange={changeHandler} type='text' placeholder='First name' handler="firstName"/>
+              <label htmlFor="firstName">First name</label>
+              <Input id="firstName"  onChange={changeHandler} type='text' placeholder='First name' handler="firstName"/>
             </div>
             <div className="input-last">
-              <label>Last name</label>
-              <Input onChange={changeHandler} type='text' placeholder='Last name' handler="lastName"/>
+              <label htmlFor="lastName">Last name</label>
+              <Input id="lastName" onChange={changeHandler} type='text' placeholder='Last name' handler="lastName"/>
             </div>
           </div>
           <div className="input-two">
-            <label>Company name</label>
-            <Input onChange={changeHandler} type='text' placeholder='Company name' handler="companyName"/>
+            <label htmlFor="companyName">Company name</label>
+            <Input id="companyName" onChange={changeHandler} type='text' placeholder='Company name' handler="companyName"/>
           </div>
           <div className="input-two">
             {(emailDirty && emailError) ? <label style={{color: 'red'}} className="label">{emailError}</label> :
-              <label className="label">E-mail</label>}
+              <label htmlFor="email" className="label">E-mail</label>}
             <Input value={email}
                    onChange={emailHandler}
                    onBlur={e => blurHandler(e)}
                    name='email'
                    handler="email"
                    type='email'
-                   placeholder='Email'/>
+                   placeholder='Email'
+                   id="email"
+            />
           </div>
           <div className="input-two">
             {(passwordDirty && passwordError) ?
               <label style={{color: 'red'}} className="label">{passwordError}</label> :
-              <label className="label">Password</label>}
+              <label htmlFor="password" className="label">Password</label>}
             <Input vvalue={password}
                    onChange={passwordHandler}
                    onBlur={e => blurHandler(e)}
                    handler="password"
                    name='password'
                    type='password'
-                   placeholder='Enter password'/>
+                   placeholder='Enter password'
+                   id="password"
+            />
           </div>
           <div className="input-two">
             <label>Repeat password</label>

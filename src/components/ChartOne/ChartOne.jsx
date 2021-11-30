@@ -14,10 +14,10 @@ import { withStyles } from "@material-ui/core/styles";
 const ChartOne = () => {
 
   const [data, setData] = useState([
-    {goods: 'Auto', area: 1},
-    {goods: 'Auto', area: 1},
-    {goods: 'Auto', area: 2.5},
-    {goods: 'Auto', area: 1},
+    {goods: 'Auto1', area: 1},
+    {goods: 'Auto2', area: 1},
+    {goods: 'Auto3', area: 2.5},
+    {goods: 'Auto4', area: 1},
   ])
 
   const legendStyles = () => ({

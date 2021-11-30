@@ -7,8 +7,11 @@ import sales from "../../images/icons/sales.svg"
 import user from "../../images/icons/user.svg"
 import logout from "../../images/icons/logout.svg"
 import './styles.scss'
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Header = ({setIsAuth}) => {
+
+  const history = useHistory();
 
   const menu = [
     {
@@ -38,17 +41,19 @@ const Header = ({setIsAuth}) => {
     localStorage.removeItem('isAuth')
   }
 
+  const handleHome = () => history.push('/')
+
 
   return (
     <div className="header">
-      <div className="logo">
+      <div onClick={handleHome} className="logo">
         <img src={logo} alt="logo"/>
       </div>
       <div className="menu">
-        {menu.map(item => {
+        {menu.map((item, index) => {
           return (
-            <NavLink key={item.title} exact activeClassName="active" to={item.link}>
-              <img src={item.icon} alt="list item"/>
+            <NavLink key={index + 3} exact activeClassName="active" to={item.link}>
+              <img key={index + 7}  src={item.icon} alt="list-item"/>
               {item.title}
             </NavLink>
           )

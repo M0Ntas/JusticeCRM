@@ -23,7 +23,8 @@ const ChartTwo = ({classes}) => {
   const TitleText = withStyles(titleStyles)(({classes, ...props}) => (
     <Title.Text {...props} className={classes.title}/>));
 
-  return (<Paper>
+  return (
+    <Paper>
     <Chart
       data={data}
       className={classes}

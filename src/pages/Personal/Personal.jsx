@@ -11,27 +11,27 @@ const Personal = () => {
   const [inputsLeft, setInputsLeft] = useState([
     {
       type: 'text',
-      id: Date.now,
+      id: Date.now(),
       placeholder: 'First name',
       handler: 'firstName',
-      value: personal.firstName
+      value: personal.firstName,
     },
     {
       type: 'text',
-      id: Date.now,
+      id: Date.now(),
       placeholder: 'Company name',
       handler: 'companyName',
       value: personal.companyName
     },
     {
       type: 'text',
-      id: Date.now,
+      id: Date.now(),
       placeholder: 'Address',
       handler: 'address',
     },
     {
       type: 'password',
-      id: Date.now,
+      id: Date.now(),
       placeholder: 'Enter old password',
       handler: 'oldPassword',
     },
@@ -40,21 +40,21 @@ const Personal = () => {
   const [inputsRight, setInputsRight] = useState([
     {
       type: 'text',
-      id: Date.now,
+      id: Date.now(),
       placeholder: 'Last name',
       handler: 'lastName',
       value: personal.lastName
     },
     {
       type: 'email',
-      id: Date.now,
+      id: Date.now(),
       placeholder: 'Email',
       handler: 'email',
       value: personal.email
     },
     {
       type: 'password',
-      id: Date.now,
+      id: Date.now(),
       placeholder: 'Enter a new password',
       handler: 'newPassword',
     },
@@ -88,7 +88,6 @@ const Personal = () => {
   };
   const [trigger, setTrigger] = useState(false)
 
-  console.log('====>inputsLeft<====', inputsLeft)
   return (
     <div className="container">
       <TitleHeader
@@ -100,11 +99,12 @@ const Personal = () => {
       />
       <div className="personal-form">
         <div className="input-left">
-          {inputsLeft.map((item) => {
+          {inputsLeft.map((item, index) => {
             return (
-              <div className="personal-input" key={item.id}>
-                <label id={item.id}>{item.placeholder}</label>
+              <div className="personal-input" key={index + 2}>
+                <label htmlFor={item.id}>{item.placeholder}</label>
                 <Input
+                  id={item.id}
                   value={form[item.handler]}
                   placeholder={item.placeholder}
                   type={item.type}
@@ -116,11 +116,12 @@ const Personal = () => {
           })}
         </div>
         <div className="input-right">
-          {inputsRight.map((item) => {
+          {inputsRight.map((item, index) => {
             return (
-              <div className="personal-input" key={item.id}>
-                <label id={item.id}>{item.placeholder}</label>
+              <div className="personal-input" key={index + 5}>
+                <label htmlFor={item.id}>{item.placeholder}</label>
                 <Input
+                  id={item.id}
                   value={item.value}
                   placeholder={item.placeholder}
                   type={item.type}
@@ -133,7 +134,7 @@ const Personal = () => {
         </div>
       </div>
       <div className='personal-button'>
-        <Button onClick={console.log('====>form<====', form)}>
+        <Button onClick={() => console.log('====>form<====', form)}>
           <span>Save changes</span>
         </Button>
       </div>

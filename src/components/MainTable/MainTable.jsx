@@ -183,16 +183,16 @@ const MainTable = (
       <Table sx={{minWidth: 700}} aria-label="customized table">
         <TableHead>
           <TableRow>
-            {headTable.map(item => {
+            {headTable.map((item, index )=> {
               return (
-                <StyledTableCell className="table-header-row" align="center">{item}</StyledTableCell>
+                <StyledTableCell key={index + 100} className="table-header-row" align="center">{item}</StyledTableCell>
               )
             })}
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((item) => (
-            <StyledTableRow key={items.productName} id={item.id}>
+          {items.map((item, index) => (
+            <StyledTableRow key={index + 32} id={item.id}>
               <StyledTableCell component="th" scope="row">
                 {item.productName}
               </StyledTableCell>
@@ -232,10 +232,11 @@ const MainTable = (
       {edit && <Modal
         onClick={setEdit}
         title="Sell the product">
-        {editInputs.map((item) => {
+        {editInputs.map((item,index) => {
           return (
-            <div className="modal-input-wrap" key={item.id}>
+            <div className="modal-input-wrap" key={index + 23}>
               <Input
+                key={index + 54}
                 placeholder={item.placeholder}
                 type={item.type}
                 handler={item.handler}

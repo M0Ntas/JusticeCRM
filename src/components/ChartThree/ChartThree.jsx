@@ -4,13 +4,11 @@ import {
   Chart,
   BarSeries,
   Title,
-  ArgumentAxis,
-  ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
+import { ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart';
 import { Animation } from '@devexpress/dx-react-chart';
 import './style.scss'
 import { useState } from "react";
-
 
 const ChartThree = () => {
 
