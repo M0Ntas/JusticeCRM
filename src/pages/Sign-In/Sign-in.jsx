@@ -15,12 +15,12 @@ const SignIn = ({setIsAuth}) => {
   const [validForm, setValidForm] = useState(false);
 
   useEffect(() => {
-    if(emailError || passwordError){
+    if (emailError || passwordError) {
       setValidForm(false)
-    }else {
+    } else {
       setValidForm(true)
     }
-  },[emailError, passwordError])
+  }, [emailError, passwordError])
 
   const [formUsers, setFormUsers] = useState({
     email: '',
@@ -28,31 +28,31 @@ const SignIn = ({setIsAuth}) => {
     id: '',
   });
 
-const changeHandler = event => {
-  const key = event.target.getAttribute('handler')
-  setFormUsers({
-    ...formUsers,
-    [key]: event.target.value
-  })
-};
-
-const handleLogIn = () => {
-  if (localStorage.users !== undefined){
-    const find = JSON.parse(localStorage.users).find((item) => {
-      return item.email === formUsers.email
+  const changeHandler = event => {
+    const key = event.target.getAttribute('handler')
+    setFormUsers({
+      ...formUsers,
+      [key]: event.target.value
     })
-    const isValidEmail = find.email === formUsers.email
-    const isValidPassword = find.password === formUsers.password
-    if(isValidEmail && isValidPassword){
-      localStorage.setItem('user', JSON.stringify(find))
-      localStorage.setItem('isAuth', 'true')
-      console.log('====>formUsers<====', formUsers)
-      setIsAuth(true)
-    }else {
-      setPasswordError('Неверный пароль')
+  };
+
+  const handleLogIn = () => {
+    if (localStorage.users !== undefined) {
+      const find = JSON.parse(localStorage.users).find((item) => {
+        return item.email === formUsers.email
+      })
+      const isValidEmail = find.email === formUsers.email
+      const isValidPassword = find.password === formUsers.password
+      if (isValidEmail && isValidPassword) {
+        localStorage.setItem('user', JSON.stringify(find))
+        localStorage.setItem('isAuth', 'true')
+        console.log('====>formUsers<====', formUsers)
+        setIsAuth(true)
+      } else {
+        setPasswordError('Неверный пароль')
+      }
     }
-  }
-};
+  };
 
   const history = useHistory();
 
@@ -63,7 +63,7 @@ const handleLogIn = () => {
   const emailHandler = (e) => {
     setEmail(e.target.value)
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(e.target.value).toLowerCase())){
+    if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Неккорректный E-mail')
     } else {
       setEmailError('')
@@ -73,9 +73,9 @@ const handleLogIn = () => {
 
   const passwordHandler = (e) => {
     setPassword(e.target.value)
-    if (e.target.value.length <3 || e.target.value.length > 8){
+    if (e.target.value.length < 3 || e.target.value.length > 8) {
       setPasswordError('Пароль должен быть длиннее 3 и менее 8')
-      if (!e.target.value){
+      if (!e.target.value) {
         setPasswordError('Пароль не может быть пустым')
       }
     } else {
@@ -85,7 +85,7 @@ const handleLogIn = () => {
   };
 
   const blurHandler = (e) => {
-    switch (e.target.name){
+    switch (e.target.name) {
       case 'email':
         setEmailDirty(true)
         break
@@ -103,7 +103,8 @@ const handleLogIn = () => {
             <span>Sign in</span>
           </div>
           <div className="email">
-            {(emailDirty && emailError) ? <label style={{color: 'red'}} className="label">{emailError}</label> :  <label className="label">E-mail</label>}
+            {(emailDirty && emailError) ? <label style={{color: 'red'}} className="label">{emailError}</label> :
+              <label className="label">E-mail</label>}
             <Input value={email}
                    onChange={emailHandler}
                    onBlur={e => blurHandler(e)}
@@ -113,7 +114,9 @@ const handleLogIn = () => {
                    placeholder='Email'/>
           </div>
           <div className="password">
-            {(passwordDirty && passwordError) ? <label style={{color: 'red'}} className="label">{passwordError}</label> :  <label className="label">Password</label>}
+            {(passwordDirty && passwordError) ?
+              <label style={{color: 'red'}} className="label">{passwordError}</label> :
+              <label className="label">Password</label>}
             <Input value={password}
                    onChange={passwordHandler}
                    onBlur={e => blurHandler(e)}
@@ -123,9 +126,9 @@ const handleLogIn = () => {
                    placeholder='Enter password'/>
           </div>
           <button className='button-login' disabled={!validForm} onClick={handleLogIn}>Log in</button>
-          <div className='forgot' >
+          <div className='forgot'>
             <div>
-              <span onClick={handleRegistration} >Create account</span>
+              <span onClick={handleRegistration}>Create account</span>
             </div>
             <span>Forgot password?</span>
           </div>

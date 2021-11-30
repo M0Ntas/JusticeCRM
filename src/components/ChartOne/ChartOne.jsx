@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import {
-  Chart, Legend,
+  Chart,
+  Legend,
   PieSeries,
   Title,
 } from '@devexpress/dx-react-chart-material-ui';
@@ -23,7 +24,7 @@ const ChartOne = () => {
     root: {
       display: 'flex',
       margin: 'auto',
-      flexDirection: 'colum',
+      flexDirection: 'column',
     },
   });
 
@@ -56,16 +57,25 @@ const ChartOne = () => {
 
   return (
     <div className='chart-one'>
-      <Paper>
+      <Paper
+        className='paper-all'
+        height={"325"}>
         <Chart
+          className='chart-test'
           data={data}
-          width={"350"}
+          height={'325px'}
         >
           <PieSeries
             valueField="area"
             argumentField="goods"
+            height={'200px'}
           />
-          <Legend position="right" rootComponent={Root} itemComponent={Item} labelComponent={Label}/>
+          <Legend
+            position="right"
+            rootComponent={Root}
+            itemComponent={Item}
+            labelComponent={Label}
+          />
           <Title
             text="Sales schedule by day"
             text-align={'left'}

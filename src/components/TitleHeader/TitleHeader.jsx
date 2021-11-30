@@ -1,6 +1,6 @@
 import Title from "../Title/Title";
 import Button from "../Button/Button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './style.scss'
 import button from "../../images/icons/button.svg";
 import Modal from "../Modal/Modal";
@@ -10,7 +10,7 @@ import plus from "../../images/icons/plus.svg";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import moment from "moment";
 
-const TitleHeader = ({title, subtitle,}) => {
+const TitleHeader = ({title, subtitle, setTrigger}) => {
 
   const history = useHistory();
 
@@ -18,10 +18,18 @@ const TitleHeader = ({title, subtitle,}) => {
 
   const [item, setItem] = useState([]);
 
+  const [form, setForm] = useState({});
+
+  useEffect(() => {
+    setTrigger(prevState => (!prevState))
+  }, [open])
+
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
     setForm({
       ...form,
+      date: moment().format("DD-MM-YYYY"),
+      id: Date.now(),
       [key]: event.target.value
     })
     console.log('====>form<====', form)
@@ -46,17 +54,6 @@ const TitleHeader = ({title, subtitle,}) => {
     }
     history.push('/my-products')
   };
-
-  const [form, setForm] = useState({
-    store: '',
-    price: '',
-    productName: '',
-    productCategory: '',
-    quantityOfGoods: '',
-    weightOfItem: '',
-    date: moment().format("DD-MM-YYYY"),
-    id: Date.now(),
-  });
 
   return (
     <div className="header-title">

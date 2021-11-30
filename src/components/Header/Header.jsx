@@ -9,6 +9,7 @@ import logout from "../../images/icons/logout.svg"
 import './styles.scss'
 
 const Header = ({setIsAuth}) => {
+
   const menu = [
     {
       icon: home,
@@ -32,7 +33,7 @@ const Header = ({setIsAuth}) => {
     },
   ]
 
-  const handleLogOut = () =>{
+  const handleLogOut = () => {
     setIsAuth(false)
     localStorage.removeItem('isAuth')
   }

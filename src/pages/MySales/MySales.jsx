@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import MainTable from "../../components/MainTable/MainTable";
@@ -8,7 +8,9 @@ const MySales = () => {
   const [items, setItems] = useState(localStorage.items ? JSON.parse(localStorage.items) : [])
 
   const [open, setOpen] = useState(false)
-  
+
+  const [trigger, setTrigger] = useState(false)
+
   const headTable = [
     'Product name',
     'Store',
@@ -28,6 +30,7 @@ const MySales = () => {
         subtitle={"Sales table"}
         onClick={() => setOpen(true)}
         button="Save changes"
+        setTrigger={setTrigger}
       />
       <MainTable headTable={headTable} items={items} setItems={setItems}/>
     </div>

@@ -1,6 +1,6 @@
 import './styles.scss'
 
-const Title = ({ title, subtitle }) => {
+const Title = ({title, subtitle}) => {
 
   return (
     <div className="title">

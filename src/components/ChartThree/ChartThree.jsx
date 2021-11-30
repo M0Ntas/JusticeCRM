@@ -28,6 +28,7 @@ const ChartThree = () => {
     <Paper>
       <Chart
         data={data}
+        height={'569'}
       >
         <ArgumentAxis/>
         <ValueAxis max={7}/>

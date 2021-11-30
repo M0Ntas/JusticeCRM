@@ -19,12 +19,7 @@ const MainTable = (
   {
     headTable,
     items,
-    soldItems,
     setItems,
-    setOpen,
-    list,
-    setList,
-    setSoldItems
   }) => {
 
   const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -128,6 +123,13 @@ const MainTable = (
 
   const deleteProduct = (id) => {
     setItems(items.filter(el => el.id !== id))
+    const productsStorage = localStorage.products ? JSON.parse(localStorage.products) : 0
+    console.log('====>productsStorage<====', productsStorage)
+    if (productsStorage) {
+      const deleteProductStorage = productsStorage.filter(el => el.id !== id)
+      console.log('====>deleteProductStorage<====', deleteProductStorage)
+      localStorage.setItem('products', JSON.stringify(deleteProductStorage))
+    }
   };
 
   const sellProduct = (id) => {
@@ -137,26 +139,26 @@ const MainTable = (
     setActiveEl(selectProduct)
   }
 
-const countProduct = () => {
+  const countProduct = () => {
     const count = activeEl.quantityOfGoods - form.numberOfProducts
-  if( count > 0 ) {
-    const newCurrentProduct = {...activeEl, quantityOfGoods: count}
-    const newProducts = items.map((product) => {
-      if(product.id === newCurrentProduct.id){
-        return newCurrentProduct
-      }
-      return product
-    })
-    localStorage.setItem('products', JSON.stringify(newProducts))
+    if (count > 0) {
+      const newCurrentProduct = {...activeEl, quantityOfGoods: count}
+      const newProducts = items.map((product) => {
+        if (product.id === newCurrentProduct.id) {
+          return newCurrentProduct
+        }
+        return product
+      })
+      localStorage.setItem('products', JSON.stringify(newProducts))
+    }
+    if (count === 0) {
+      const newProducts = items.filter((product) => product.id !== activeEl.id)
+      localStorage.setItem('products', JSON.stringify(newProducts))
+    }
+    if (count < 0) {
+      console.log('====>count<====', count)
+    }
   }
-  if (count === 0){
-    const newProducts = items.filter((product) => product.id !== activeEl.id)
-    localStorage.setItem('products', JSON.stringify(newProducts))
-  }
-  if (count < 0){
-    console.log('====>count<====', count)
-  }
-}
 
   const handleSellProduct = () => {
     countProduct()

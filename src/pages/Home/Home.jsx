@@ -10,25 +10,28 @@ const Home = () => {
 
   const [open, setOpen] = useState(false)
 
+  const [trigger, setTrigger] = useState(false)
+
   return (
     <div className="container">
       <TitleHeader
         title={"Sales statistics"}
         subtitle={"Welcome to CRM dashboard"}
         onClick={() => setOpen(true)}
+        setTrigger={setTrigger}
       />
       <div className="tables">
         <div className="tables-left">
           <div className="one">
-            <ChartOne />
+            <ChartOne/>
           </div>
           <div className="two">
-            <ChartTwo />
+            <ChartTwo/>
           </div>
         </div>
         <div className="tables-right">
           <div className="three">
-            <ChartThree />
+            <ChartThree/>
           </div>
         </div>
       </div>

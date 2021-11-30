@@ -1,6 +1,5 @@
 import './style.scss'
 import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
 import img from '../../images/icons/signin.svg'
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useEffect, useState } from "react";
@@ -38,7 +37,7 @@ const SignUp = () => {
   };
 
   const handleCreateAccount = () => {
-    if (localStorage.users !== undefined){
+    if (localStorage.users !== undefined) {
       const users = JSON.parse(localStorage.users)
       const combineUsers = [
         ...users,
@@ -46,7 +45,7 @@ const SignUp = () => {
       ]
       setUsers(combineUsers)
       localStorage.setItem('users', JSON.stringify(combineUsers))
-    }else {
+    } else {
       const array = []
       array.push(form)
       setUsers(array)
@@ -62,7 +61,7 @@ const SignUp = () => {
   const emailHandler = (e) => {
     setEmail(e.target.value)
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(e.target.value).toLowerCase())){
+    if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Неккорректный E-mail')
     } else {
       setEmailError('')
@@ -72,9 +71,9 @@ const SignUp = () => {
 
   const passwordHandler = (e) => {
     setPassword(e.target.value)
-    if (e.target.value.length <3 || e.target.value.length > 8){
+    if (e.target.value.length < 3 || e.target.value.length > 8) {
       setPasswordError('Пароль должен быть длиннее 3 и менее 8')
-      if (!e.target.value){
+      if (!e.target.value) {
         setPasswordError('Пароль не может быть пустым')
       }
     } else {
@@ -84,7 +83,7 @@ const SignUp = () => {
   };
 
   const blurHandler = (e) => {
-    switch (e.target.name){
+    switch (e.target.name) {
       case 'email':
         setEmailDirty(true)
         break
@@ -95,12 +94,12 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if(emailError || passwordError){
+    if (emailError || passwordError) {
       setValidForm(false)
-    }else {
+    } else {
       setValidForm(true)
     }
-  },[emailError, passwordError])
+  }, [emailError, passwordError])
 
   return (
     <div className='sign-up-page'>
@@ -124,7 +123,8 @@ const SignUp = () => {
             <Input onChange={changeHandler} type='text' placeholder='Company name' handler="companyName"/>
           </div>
           <div className="input-two">
-            {(emailDirty && emailError) ? <label style={{color: 'red'}} className="label">{emailError}</label> :  <label className="label">E-mail</label>}
+            {(emailDirty && emailError) ? <label style={{color: 'red'}} className="label">{emailError}</label> :
+              <label className="label">E-mail</label>}
             <Input value={email}
                    onChange={emailHandler}
                    onBlur={e => blurHandler(e)}
@@ -134,7 +134,9 @@ const SignUp = () => {
                    placeholder='Email'/>
           </div>
           <div className="input-two">
-            {(passwordDirty && passwordError) ? <label style={{color: 'red'}} className="label">{passwordError}</label> :  <label className="label">Password</label>}
+            {(passwordDirty && passwordError) ?
+              <label style={{color: 'red'}} className="label">{passwordError}</label> :
+              <label className="label">Password</label>}
             <Input vvalue={password}
                    onChange={passwordHandler}
                    onBlur={e => blurHandler(e)}
@@ -147,7 +149,8 @@ const SignUp = () => {
             <label>Repeat password</label>
             <Input onChange={changeHandler} type='password' placeholder='Repeat password' handler="repeatPassword"/>
           </div>
-          <button className='button-create-account' disabled={!validForm} onClick={handleCreateAccount}>Create account</button>
+          <button className='button-create-account' disabled={!validForm} onClick={handleCreateAccount}>Create account
+          </button>
           <div className='forgot'>
             Already have an account?
             <button className="login" onClick={logIn}>Log in</button>

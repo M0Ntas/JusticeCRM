@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './styles.scss'
 import TitleHeader from "../../components/TitleHeader/TitleHeader";
 import Input from "../../components/Input/Input";
@@ -86,6 +86,7 @@ const Personal = () => {
     })
     console.log('====>form<====', form)
   };
+  const [trigger, setTrigger] = useState(false)
 
   console.log('====>inputsLeft<====', inputsLeft)
   return (
@@ -95,6 +96,7 @@ const Personal = () => {
         subtitle={"Information about your account"}
         onClick={() => setOpen(true)}
         button="btn"
+        setTrigger={setTrigger}
       />
       <div className="personal-form">
         <div className="input-left">

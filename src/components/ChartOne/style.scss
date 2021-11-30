@@ -1,10 +1,41 @@
-.Component-root-12{
+.Component-root-12 {
   display: none;
 }
+
 .LegendRoot-root-3 {
   flex-direction: column !important;
 }
-.MuiPaper-root .MuiPaper-elevation .MuiPaper-rounded .MuiPaper-elevation1 .css-1ps6pg7-MuiPaper-root{
+
+.MuiPaper-root .MuiPaper-elevation .MuiPaper-rounded .MuiPaper-elevation1 .css-1ps6pg7-MuiPaper-root {
   width: 455px;
   height: 325px;
+
+  .Component-root-1 {
+    height: 325px !important;
+  }
+}
+
+.chart-one {
+  width: 455px;
+  height: 325px;
+
+  .paper-all {
+    height: 325px;
+
+    .Component-root-1 {
+      padding-bottom: 40px;
+      height: 325px;
+
+      #center-container {
+        padding-bottom: 40px;
+      }
+    }
+
+  }
+
+  &:first-child {
+    &:first-child {
+      height: 325px;
+    }
+  }
 }
