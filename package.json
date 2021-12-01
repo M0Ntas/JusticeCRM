@@ -12,8 +12,13 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "body-parser": "^1.19.0",
     "chart.js": "^3.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "moment": "^2.29.1",
+    "mongoose": "^6.0.14",
+    "morgan": "^1.10.0",
     "node-sass": "4.14.1",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
@@ -30,7 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon backend/index.js"
   },
   "eslintConfig": {
     "extends": [
@@ -49,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
