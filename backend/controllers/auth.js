@@ -39,7 +39,7 @@ module.exports.register = async (req, res) => {
   if (candidate) {
     //пользователь существует, нужно дать ошибку
     res.status(409).json({
-      massage: 'This email is already taken. Try another.'
+      message: 'This email is already taken. Try another.'
     })
   } else {
     //создать пользователя

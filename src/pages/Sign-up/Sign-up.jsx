@@ -2,7 +2,8 @@ import './style.scss'
 import Input from "../../components/Input/Input";
 import img from '../../images/icons/signin.svg'
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { registerUser } from "../../api/auth/registerUser";
 
 const SignUp = () => {
 
@@ -51,7 +52,18 @@ const SignUp = () => {
       setUsers(array)
       localStorage.setItem('users', JSON.stringify(array))
     }
-    history.push('/sign-in')
+
+    if (form.email && form.password) {
+      registerUser(form)
+        .then(res => {
+          if(res.status) {
+            history.push('/sign-in')
+          } else {
+            alert(res.text)
+          }
+        })
+        .catch(err => console.log('====>err<====', err))
+    }
   };
 
   const logIn = () => {
@@ -100,6 +112,14 @@ const SignUp = () => {
       setValidForm(true)
     }
   }, [emailError, passwordError])
+
+  useEffect(() => {
+    if (form.password === form.repeatPassword) {
+      setValidForm(true)
+    } else {
+      setValidForm(false)
+    }
+  },[form])
 
   return (
     <div className='sign-up-page'>
