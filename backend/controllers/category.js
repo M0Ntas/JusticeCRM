@@ -1,5 +1,5 @@
 module.exports.getAll = (req, res) => {
-
+res.json({message: 'its work'})
 }
 
 module.exports.getByID = (req, res) => {
