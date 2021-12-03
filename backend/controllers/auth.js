@@ -57,7 +57,6 @@ module.exports.register = async (req, res) => {
     })
     try {
       await user.save()
-      console.log('====>user<====', user)
       res.status(201).json(user)
     } catch (e) {
       // Обработать ошибку

@@ -9,6 +9,8 @@ import Input from "../Input/Input";
 import plus from "../../images/icons/plus.svg";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import moment from "moment";
+import { registerUser } from "../../api/auth/registerUser";
+import { createCategory } from "../../api/category/createCategory";
 
 const TitleHeader = ({title, subtitle, setTrigger}) => {
 
@@ -29,30 +31,34 @@ const TitleHeader = ({title, subtitle, setTrigger}) => {
     setForm({
       ...form,
       date: moment().format("DD-MM-YYYY"),
-      id: Date.now(),
       [key]: event.target.value
     })
-    console.log('====>form<====', form)
   };
 
   const handleAddProduct = () => {
-    if (localStorage.products !== undefined) {
-      const products = JSON.parse(localStorage.products)
-      const setProducts = [
-        ...products,
-        form
-      ]
-      setItem(setProducts)
-      localStorage.setItem('products', JSON.stringify(setProducts))
-      history.push('/my-products')
-      setOpen(false)
-    } else {
-      const array = []
-      array.push(form)
-      setItem(array)
-      localStorage.setItem('products', JSON.stringify(array))
-    }
-    history.push('/my-products')
+    // if (localStorage.products !== undefined) {
+    //   const products = JSON.parse(localStorage.products)
+    //   const setProducts = [
+    //     ...products,
+    //     form
+    //   ]
+    //   setItem(setProducts)
+    //   localStorage.setItem('products', JSON.stringify(setProducts))
+    //   history.push('/my-products')
+    //   setOpen(false)
+    // } else {
+    //   const array = []
+    //   array.push(form)
+    //   setItem(array)
+    //   localStorage.setItem('products', JSON.stringify(array))
+    // }
+      createCategory(form)
+        .then(res => {
+          if (res.status) {
+            history.push('/sign-in')
+          }
+          history.push('/my-products')
+        })
   };
 
   return (
