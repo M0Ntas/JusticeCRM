@@ -47,10 +47,17 @@ const SignIn = ({setIsAuth}) => {
             setIsAuth(true)
             history.push('/')
           } else {
+            console.log('====>res<====', res)
+            if (res.label === 'password') {
+              ////password error
+              setPasswordError(res.text)
+            } else {
+              ////email err
+              setEmailError(res.text)
+            }
             setEmailError(res.text)
           }
         })
-        .catch(err => console.log('====>err<====', err))
     }
   };
 

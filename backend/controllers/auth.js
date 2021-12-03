@@ -24,13 +24,15 @@ module.exports.login = async (req, res) => {
     } else {
       res.status(401).json({
         //Пароли не совпали
-        message: 'Password mismatch. Try again.'
+        message: 'Password mismatch. Try again.',
+        label: 'password'
       })
     }
   } else {
     //пользователя нет
     res.status(404).json({
-      message: 'User with this email was not found.'
+      message: 'User with this email was not found.',
+      label: 'mail'
     })
   }
 }

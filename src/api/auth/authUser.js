@@ -8,6 +8,7 @@ export const authUser = async (data) => {
       msg.token = res.data.token
     })
     .catch(err => {
+      msg.label = err.response.data.label
       msg.text = err.response.data.message
       msg.status = false
       console.log('====><====',err.response )
