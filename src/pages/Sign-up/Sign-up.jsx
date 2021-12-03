@@ -2,17 +2,26 @@ import './style.scss'
 import Input from "../../components/Input/Input";
 import img from '../../images/icons/signin.svg'
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { registerUser } from "../../api/auth/registerUser";
 
 const SignUp = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [companyName, setCompanyName] = useState('');
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
-  const [emailError, setEmailError] = useState('E-mail не может быть пустым');
-  const [passwordError, setPasswordError] = useState('Пароль не может быть пустым');
+  const [firstNameDirty, setFirstNameDirty] = useState(false);
+  const [lastNameDirty, setLastNameDirty] = useState(false);
+  const [companyNameDirty, setCompanyNameDirty] = useState(false);
+  const [emailError, setEmailError] = useState('E-mail cannot be empty');
+  const [passwordError, setPasswordError] = useState('Password cannot be empty');
+  const [firstNameError, setFirstNameError] = useState('First Name cannot be empty')
+  const [lastNameError, setLastNameError] = useState('Last Name cannot be empty')
+  const [companyNameError, setCompanyNameError] = useState('Company Name cannot be empty');
   const [validForm, setValidForm] = useState(false);
 
   const history = useHistory();
@@ -27,8 +36,6 @@ const SignUp = () => {
     id: Date.now(),
   });
 
-  const [users, setUsers] = useState([])
-
   const changeHandler = event => {
     const key = event.target.getAttribute('handler')
     setForm({
@@ -38,28 +45,14 @@ const SignUp = () => {
   };
 
   const handleCreateAccount = () => {
-    if (localStorage.users !== undefined) {
-      const users = JSON.parse(localStorage.users)
-      const combineUsers = [
-        ...users,
-        form
-      ]
-      setUsers(combineUsers)
-      localStorage.setItem('users', JSON.stringify(combineUsers))
-    } else {
-      const array = []
-      array.push(form)
-      setUsers(array)
-      localStorage.setItem('users', JSON.stringify(array))
-    }
 
     if (form.email && form.password) {
       registerUser(form)
         .then(res => {
-          if(res.status) {
+          if (res.status) {
             history.push('/sign-in')
           } else {
-            alert(res.text)
+            setEmailError(res.text)
           }
         })
         .catch(err => console.log('====>err<====', err))
@@ -74,7 +67,7 @@ const SignUp = () => {
     setEmail(e.target.value)
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(e.target.value).toLowerCase())) {
-      setEmailError('Неккорректный E-mail')
+      setEmailError('Incorrect E-mail')
     } else {
       setEmailError('')
       changeHandler(e)
@@ -84,9 +77,9 @@ const SignUp = () => {
   const passwordHandler = (e) => {
     setPassword(e.target.value)
     if (e.target.value.length < 3 || e.target.value.length > 8) {
-      setPasswordError('Пароль должен быть длиннее 3 и менее 8')
+      setPasswordError('Password must be longer than 3 and less than 8')
       if (!e.target.value) {
-        setPasswordError('Пароль не может быть пустым')
+        setPasswordError('Password cannot be empty')
       }
     } else {
       setPasswordError('')
@@ -94,7 +87,47 @@ const SignUp = () => {
     }
   };
 
+  const firstNameHandler = (e) => {
+    setFirstName(e.target.value)
+    if (e.target.value.length < 1 || e.target.value.length > 8) {
+      setFirstNameError('First Name must be longer than 1 and less than 8')
+      if (!e.target.value) {
+        setFirstNameError('First Name cannot be empty')
+      }
+    } else {
+      setFirstNameError('')
+      changeHandler(e)
+    }
+  };
+
+  const lastNameHandler = (e) => {
+    setLastName(e.target.value)
+    if (e.target.value.length < 1 || e.target.value.length > 8) {
+      setLastNameError('Last Name must be longer than 1 and less than 8')
+      if (!e.target.value) {
+        setLastNameError('Last Name cannot be empty')
+      }
+    } else {
+      setLastNameError('')
+      changeHandler(e)
+    }
+  };
+
+  const companyNameHandler = (e) => {
+    setCompanyName(e.target.value)
+    if (e.target.value.length < 1 || e.target.value.length > 8) {
+      setCompanyNameError('Company Name must be longer than 1 and less than 8')
+      if (!e.target.value) {
+        setCompanyNameError('Company Name cannot be empty')
+      }
+    } else {
+      setCompanyNameError('')
+      changeHandler(e)
+    }
+  };
+
   const blurHandler = (e) => {
+    console.log('====>e.target.name<====', e.target.name)
     switch (e.target.name) {
       case 'email':
         setEmailDirty(true)
@@ -102,16 +135,25 @@ const SignUp = () => {
       case 'password':
         setPasswordDirty(true)
         break
+      case 'firstName':
+        setFirstNameDirty(true)
+        break
+      case 'lastName':
+        setLastNameDirty(true)
+        break
+      case 'companyName':
+        setCompanyNameDirty(true)
+        break
     }
   };
 
   useEffect(() => {
-    if (emailError || passwordError) {
+    if (emailError || passwordError || firstNameError || lastNameError || companyNameError) {
       setValidForm(false)
     } else {
       setValidForm(true)
     }
-  }, [emailError, passwordError])
+  }, [emailError, passwordError, firstNameError, lastNameError, companyNameError])
 
   useEffect(() => {
     if (form.password === form.repeatPassword) {
@@ -119,7 +161,7 @@ const SignUp = () => {
     } else {
       setValidForm(false)
     }
-  },[form])
+  }, [form])
 
   return (
     <div className='sign-up-page'>
@@ -130,20 +172,51 @@ const SignUp = () => {
           </div>
           <div className="input-one">
             <div className="input-first">
-              <label htmlFor="firstName">First name</label>
-              <Input id="firstName"  onChange={changeHandler} type='text' placeholder='First name' handler="firstName"/>
+              {(firstNameDirty && firstNameError) ?
+                <label htmlFor="firstName" style={{color: 'red'}} className="label">{firstNameError}</label> :
+                <label htmlFor="firstName" className="label">First Name</label>}
+              <Input id="firstName"
+                     value={firstName}
+                     onChange={firstNameHandler}
+                     onBlur={e => blurHandler(e)}
+                     type='text'
+                     placeholder='First name'
+                     handler="firstName"
+                     name='firstName'
+              />
             </div>
             <div className="input-last">
-              <label htmlFor="lastName">Last name</label>
-              <Input id="lastName" onChange={changeHandler} type='text' placeholder='Last name' handler="lastName"/>
+              {(lastNameDirty && lastNameError) ?
+                <label htmlFor="lastName" style={{color: 'red'}} className="label">{lastNameError}</label> :
+                <label htmlFor="lastName" className="label">Last Name</label>}
+              <Input id="lastName"
+                     value={lastName}
+                     name='lastName'
+                     onChange={lastNameHandler}
+                     onBlur={e => blurHandler(e)}
+                     type='text'
+                     placeholder='Last name'
+                     handler="lastName"
+              />
             </div>
           </div>
           <div className="input-two">
-            <label htmlFor="companyName">Company name</label>
-            <Input id="companyName" onChange={changeHandler} type='text' placeholder='Company name' handler="companyName"/>
+            {(companyNameDirty && companyNameError) ?
+              <label htmlFor="companyName" style={{color: 'red'}} className="label">{companyNameError}</label> :
+              <label htmlFor="companyName" className="label">Company Name</label>}
+            <Input id="companyName"
+                   value={companyName}
+                   onChange={companyNameHandler}
+                   onBlur={e => blurHandler(e)}
+                   name='companyName'
+                   type='text'
+                   placeholder='Company name'
+                   handler="companyName"
+            />
           </div>
           <div className="input-two">
-            {(emailDirty && emailError) ? <label style={{color: 'red'}} className="label">{emailError}</label> :
+            {(emailDirty && emailError) ?
+              <label style={{color: 'red'}} className="label">{emailError}</label> :
               <label htmlFor="email" className="label">E-mail</label>}
             <Input value={email}
                    onChange={emailHandler}

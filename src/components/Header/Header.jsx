@@ -37,8 +37,9 @@ const Header = ({setIsAuth}) => {
   ]
 
   const handleLogOut = () => {
+    localStorage.clear()
     setIsAuth(false)
-    localStorage.removeItem('isAuth')
+    history.push('/sign-in')
   }
 
   const handleHome = () => history.push('/')

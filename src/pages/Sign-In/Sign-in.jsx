@@ -3,6 +3,7 @@ import Input from "../../components/Input/Input";
 import img from '../../images/icons/signin.svg'
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { authUser } from "../../api/auth/authUser";
 
 const SignIn = ({setIsAuth}) => {
 
@@ -13,7 +14,8 @@ const SignIn = ({setIsAuth}) => {
   const [emailError, setEmailError] = useState('E-mail не может быть пустым');
   const [passwordError, setPasswordError] = useState('Пароль не может быть пустым');
   const [validForm, setValidForm] = useState(false);
-
+  const history = useHistory();
+  
   useEffect(() => {
     if (emailError || passwordError) {
       setValidForm(false)
@@ -25,7 +27,6 @@ const SignIn = ({setIsAuth}) => {
   const [formUsers, setFormUsers] = useState({
     email: '',
     password: '',
-    id: '',
   });
 
   const changeHandler = event => {
@@ -37,24 +38,21 @@ const SignIn = ({setIsAuth}) => {
   };
 
   const handleLogIn = () => {
-    if (localStorage.users !== undefined) {
-      const find = JSON.parse(localStorage.users).find((item) => {
-        return item.email === formUsers.email
-      })
-      const isValidEmail = find.email === formUsers.email
-      const isValidPassword = find.password === formUsers.password
-      if (isValidEmail && isValidPassword) {
-        localStorage.setItem('user', JSON.stringify(find))
-        localStorage.setItem('isAuth', 'true')
-        console.log('====>formUsers<====', formUsers)
-        setIsAuth(true)
-      } else {
-        setPasswordError('Неверный пароль')
-      }
+    
+    if (formUsers.email && formUsers.password) {
+      authUser(formUsers)
+        .then(res => {
+          if (res.status) {
+            localStorage.setItem('token',res.token)
+            setIsAuth(true)
+            history.push('/')
+          } else {
+            setEmailError(res.text)
+          }
+        })
+        .catch(err => console.log('====>err<====', err))
     }
   };
-
-  const history = useHistory();
 
   const handleRegistration = () => {
     history.push('/sign-up')

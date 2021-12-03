@@ -11,7 +11,7 @@ import SignUp from "./pages/Sign-up/Sign-up";
 
 function App() {
 
-  const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth') || false)
+  const [isAuth, setIsAuth] = useState(localStorage.getItem('token') || false)
 
   return (
     <Router>
@@ -39,7 +39,7 @@ function App() {
         :
         <Switch>
           <Route exact path="/sign-in">
-            <SignIn setIsAuth={setIsAuth}/>
+            <SignIn isAuth={isAuth} setIsAuth={setIsAuth}/>
           </Route>
           <Route exact path="/sign-up">
             <SignUp/>

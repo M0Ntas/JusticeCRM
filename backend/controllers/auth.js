@@ -5,6 +5,7 @@ const keys = require('../config/keys')
 const errorHandler = require('../utils/errorHandler')
 
 module.exports.login = async (req, res) => {
+
   const candidate = await User.findOne({email: req.body.email})
 
   if (candidate) {
@@ -23,13 +24,13 @@ module.exports.login = async (req, res) => {
     } else {
       res.status(401).json({
         //Пароли не совпали
-        massage: 'Password mismatch. Try again.'
+        message: 'Password mismatch. Try again.'
       })
     }
   } else {
     //пользователя нет
     res.status(404).json({
-      massage: 'User with this email was not found.'
+      message: 'User with this email was not found.'
     })
   }
 }
@@ -47,10 +48,14 @@ module.exports.register = async (req, res) => {
     const password = req.body.password
     const user = new User({
       email: req.body.email,
-      password: bcrypt.hashSync(password, salt)
+      password: bcrypt.hashSync(password, salt),
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      companyName: req.body.companyName,
     })
     try {
       await user.save()
+      console.log('====>user<====', user)
       res.status(201).json(user)
     } catch (e) {
       // Обработать ошибку
