@@ -3,13 +3,29 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const categorySchema = new Schema({
-  name: {
+  store: {
     type: String,
     required: true
   },
-  imageSrc: {
+  price: {
+    type: Number,
+    required: true
+  },
+  productName: {
     type: String,
-    default: ''
+    required: true
+  },
+  quantityOfGoods: {
+    type: Number,
+    required: true
+  },
+  weightOfItem: {
+    type: Number,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
   },
   user: {
     ref: 'users',

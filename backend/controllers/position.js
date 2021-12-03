@@ -50,11 +50,3 @@ module.exports.update = async (req, res) => {
     errorHandler(res, e)
   }
 }
-//
-// module.exports.overview = (req, res) => {
-//   try {
-//
-//   } catch (e) {
-//     errorHandler(res, e)
-//   }
-// }

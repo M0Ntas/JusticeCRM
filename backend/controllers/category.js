@@ -33,11 +33,15 @@ module.exports.remove = async (req, res) => {
 }
 
 module.exports.create = async (req, res) => {
-console.log('====>req.user<====', req.user)
+console.log('====>req.user<====', req.body)
   const category = new Category({
-    name: req.body.name,
+    store: req.body.store,
+    price: req.body.price,
+    productName: req.body.productName,
+    quantityOfGoods: req.body.quantityOfGoods,
+    weightOfItem:req.body.weightOfItem,
+    date: req.body.date,
     user: req.user.id,
-    imageSrc: req.file ? req.file.path : ''
   })
   try {
     await category.save()
